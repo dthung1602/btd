@@ -5,6 +5,7 @@ class Game {
   Tower towerList [];
   Tower chosenTower = null;
   Tower buildingTower = null;
+  boolean buildingTowerConflict = false;
   Weapon weaponList [];
   int baloonCount;
   int health = 0;

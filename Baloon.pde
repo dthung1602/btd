@@ -1,8 +1,8 @@
-static abstract class Baloon {
+abstract class Baloon {
   float x,y;
   float speed;
   int health;
-  PImage image;
+  PImage img;
   int status = 0;
   int line = 0;
   int stepInLine;
@@ -18,6 +18,6 @@ class RedBaloon extends Baloon {
     super(tmp_x, tmp_y);
     speed = 1;
     health = 1;
-    image = loadImage("./Pic/background.jpg");
+    img = loadImage("./Pic/background.jpg");
   }
 }

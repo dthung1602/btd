@@ -1,19 +1,19 @@
-void draw() {
+void draw () {
   if (!pausing) {
     //--------------check win,lose-------------//
-    if (game.health<=0)
+    /*if (game.health<=0)
       lose();
     else if (game.baloonCount==0)
-      win();
+      win();*/
     
     //-------------draw background-------------//
     background(screen.bg);
     fill(WHITE);
     
     //-------draw weapons & calculate---------//
-    if (starting) {
+    /*if (starting) {
       Weapon wp [] = game.weaponList;
-      l = wp.length;
+      int l = wp.length;
       for (int i=0; i<l; i++) {
         wp[i].x += wp[i].speedX;
         wp[i].y += wp[i].speedY;
@@ -24,7 +24,7 @@ void draw() {
     
     //------------draw towers & calculate-----------//
     Tower tw []= game.towerList;
-    int l = tw.length;
+    l = tw.length;
     for (int i=0; i<l; i++) {
       if (tw[i] == game.chosenTower)
         ellipse(tw[i].x, tw[i].y, tw[i].shootRadius*2, tw[i].shootRadius*2);
@@ -35,16 +35,20 @@ void draw() {
     //-------------draw mouse------------------//
     //draw building tower
     if (game.chosenTower != null) {
-      for (int i=0; i<l; i++) {
-        if (touch(game.buildingTower,tw[i]) {
-          fill(RED);
-          ellipse(mouseX, mouseY, game.buildingTower.shootRadius*2, game.buildingTower.shootRadius*2);
+      for (int i=0; i<l; i++) 
+        if (touch(game.buildingTower,tw[i])) {
+          game.buildingTowerConflict = true;
           break;
         }
-      }
-    }
+      if (game.buildingTowerConflict)
+        fill(RED);
+      else 
+        fill(WHITE);
+      ellipse(mouseX, mouseY, game.buildingTower.shootRadius*2, game.buildingTower.shootRadius*2);
+      image(game.chosenTower.img, mouseX, mouseY);
+    }*/
     
-    //check buttons
+    //check mouse on any button
     fill(WHITE);
     Button b;
     for (int i=0; i<screen.buttonList.length; i++) {
