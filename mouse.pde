@@ -9,13 +9,13 @@ void mousePressed() {
       bt[i].action();
       return;
     }
-    
+  /*  
   if (game.buildingTower == null) {
     //check if player selects tower
     Tower tw []= game.towerList;
     l = tw.length;
     for (int i=0; i<l; i++)
-      if (distance(mouseX,mouseY,tw[i].x,tw[i].y <= tw.buildRadius) {
+      if (distance(mouseX,mouseY,tw[i].x,tw[i].y) <= tw.buildRadius) {
         game.chosenTower = tw[i];
         return;
       }
@@ -28,5 +28,5 @@ void mousePressed() {
       game.money -= game.buildingTower.price;
       game.buildingTower = null;
     }
-  } 
+  } */
 }

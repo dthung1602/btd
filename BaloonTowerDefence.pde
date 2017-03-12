@@ -20,14 +20,14 @@ boolean pausing = true; // menu vs game
 void setup() {
   //----------setup basic----------//
   size(800,500);
+  //background(./Pic/loading.png);
   rectMode(CORNERS);
   w = width/2;
   h = height/2;
+  noStroke();
   frameRate(60);
   
   //---------create objects-----------//
-  
-  
   
   //create menu screen
   PImage bg = loadImage("./Pic/menubg.jpg");
