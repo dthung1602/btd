@@ -1,6 +1,11 @@
-static abstract class Weapon {
+abstract class Weapon {
   float x,y;
   float speedX, speedY;
+  float speed;
+  float popRadius;
+  int damage;
+  PImage img;
+  int popCount;
   
   Weapon (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
     x = tmp_x;
@@ -17,12 +22,7 @@ static abstract class Weapon {
 }
 
 
-static class Dart extends Weapon{  
-  static float speed;/**/
-  static int damage;
-  static PImage img;
-  static int count;
-  
+class Dart extends Weapon{    
   Dart (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
     super(tmp_x, tmp_y, tmp_speedX, tmp_speedY);
   }

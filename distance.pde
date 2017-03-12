@@ -19,3 +19,9 @@ boolean touch (Tower tw1, Tower tw2) {
     return false;
   return true;
 }
+
+boolean touch (Weapon wp, Baloon bl) {
+  if (distance(wp,bl) > wp.popRadius) 
+    return false;
+  return true;
+}
