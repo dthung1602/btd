@@ -1,2 +1,7 @@
-void win() {}
-void lose() {}
+void win() {
+  println("WIN!");
+}
+
+void lose() {
+  println("LOSE!");
+}

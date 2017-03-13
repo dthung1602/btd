@@ -6,7 +6,7 @@ class Track {
   float ySpeed[];
   int trackWidth;
   PImage bg;
-  Baloon baloonList [];
+  Balloon balloonList [];
   int defaultHealth;
   int defaultMoney;
   

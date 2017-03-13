@@ -1,13 +1,13 @@
 class Game {
   float x[];
   float y[];
-  Baloon baloonList [];
+  Balloon balloonList [];
   Tower towerList [];
   Tower chosenTower = null;
   Tower buildingTower = null;
   boolean buildingTowerConflict = false;
   Weapon weaponList [];
-  int baloonCount;
+  int balloonCount;
   int health = 0;
   int money = 0;
   

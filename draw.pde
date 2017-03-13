@@ -1,15 +1,47 @@
 void draw () {
   if (!pausing) {
     //--------------check win,lose-------------//
-    /*if (game.health<=0)
+    if (game.health<=0)
       lose();
-    else if (game.baloonCount==0)
-      win();*/
+    else if (game.balloonCount==0)
+      win();
     
     //-------------draw background-------------//
     background(screen.bg);
     fill(WHITE);
     
+    //--------------draw balloons & calculate---------------//
+    Balloon bl [] = game.balloonList;
+    int l = bl.length;
+    for (int i=0; i<l; i++) {
+      //---skip poped balloons----
+      if (bl[i].status == 2) 
+        continue;
+      
+      //---calculate pos-----
+      if (bl[i].stepInLine != 0 ) {
+        //balloon still in old line, keep moving
+        bl[i].x += bl[i].xSpeed;
+        bl[i].y += bl[i].ySpeed;
+        bl[i].stepInLine--;
+      } else {
+        //balloon in new line, change line, calculate new speed
+        bl[i].line += 1;
+        if (bl[i].line == track.x.length) {
+          game.health -= bl[i].health;
+          bl[i].status = 2;
+        } else {
+          bl[i].xSpeed = bl[i].speed * track.xSpeed[bl[i].line];
+          bl[i].ySpeed = bl[i].speed * track.ySpeed[bl[i].line];
+          //step = distance / length of each step; distance of curent pos and next node in track; length of step is speed xy
+          bl[i].stepInLine = (int) abs( distance(bl[i].x,bl[i].y,track.x[bl[i].line],track.y[bl[i].line]) / sqrt( sqr(track.xSpeed[bl[i].line] * bl[i].speed) + sqr(track.ySpeed[bl[i].line] * bl[i].speed) ) );
+        }
+      }
+      //---draw balloon-----
+      image(bl[i].img,bl[i].x,bl[i].y);
+    }
+    
+    /*---->>>> null */
     //-------draw weapons & calculate---------//
     /*if (starting) {
       Weapon wp [] = game.weaponList;
