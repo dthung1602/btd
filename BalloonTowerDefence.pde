@@ -14,8 +14,8 @@ Screen playScreen;
 Screen screen;
 Track track;
 Game game;
-boolean starting = false;// balloon or not
-boolean pausing = true; // menu vs game
+static boolean starting = true;// balloon or not
+static boolean pausing = true; // menu vs game
 
 void setup() {
   //----------setup basic----------//
@@ -33,10 +33,10 @@ void setup() {
   //*create track
   track = new Track("abc");
   track.level = 1;
-  track.x = new float [] {width-100,width-100,-100};
-  track.y = new float [] {200,400,400};
-  track.xSpeed = new float [] {5,0,-5};
-  track.ySpeed = new float [] {0,5,0};
+  track.x = new float [] {0,width-100,width-100,-100};
+  track.y = new float [] {200,200,400,400};
+  track.xSpeed = new float [] {5,5,0,-5};
+  track.ySpeed = new float [] {0,0,5,0};
   track.trackWidth = 20;
   track.bg = loadImage("./Pic/background.jpg");
   track.balloonList = new Balloon [] {new RedBalloon(-900,200), new RedBalloon(-500,200), new RedBalloon(-300,200)};
@@ -52,10 +52,7 @@ void setup() {
   game.money = track.defaultMoney;
   game.balloonCount = game.balloonList.length;
   game.towerList = new Tower [] {new DartMonkey(150,200), new DartMonkey(500,300), new DartMonkey(700,400)};
-  //game.chosenTower = game.towerList[0];
-  game.buildingTower = new DartMonkey(0,0);
-  
-  
+    
   //create menu screen
   PImage bg = loadImage("./Pic/menubg.jpg");
   Button buttonList [] = new Button[] {new NewGameButton(100,100,200,300), new GoButton(200,100,300,300)};
@@ -68,13 +65,7 @@ void setup() {
   
   
   //-----------show menu--------------//
-  //load menu background, buttons
-  screen = menuScreen;
-  fill(WHITE);
-  background(screen.bg);
-  rect(100,100,200,300);
-  rect(200,100,300,300);
-  fill(0,255,255,100);
+  menu();
   
   //----------tmp------------//
 }

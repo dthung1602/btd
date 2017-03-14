@@ -1,59 +1,69 @@
 void draw () {
   if (!pausing) {
     //--------------check win,lose-------------//
-    if (game.health<=0)
+    if (game.health<=0) {
       lose();
-    else if (game.balloonCount==0)
+      return;
+    } else if (game.balloonCount==0) {
       win();
+      return;
+    }
+     
+    //>>> check if player has finished round
+    // yes: starting = false;
     
     //-------------draw background-------------//
     background(screen.bg);
     fill(WHITE);
-    
-    //--------------draw balloons & calculate---------------//
-    Balloon bl [] = game.balloonList;
-    int l = bl.length;
-    for (int i=0; i<l; i++) {
-      //---skip poped balloons----
-      if (bl[i].status == 2) 
-        continue;
-      
-      //---calculate pos-----
-      if (bl[i].stepInLine != 0 ) {
-        //balloon still in old line, keep moving
-        bl[i].x += bl[i].xSpeed;
-        bl[i].y += bl[i].ySpeed;
-        bl[i].stepInLine--;
-      } else {
-        //balloon in new line, change line, calculate new speed, calculate new step needed to finish line
-        bl[i].line += 1;
-        if (bl[i].line == track.x.length) {
-          game.health -= bl[i].health;
-          bl[i].status = 2;
-        } else {
-          bl[i].xSpeed = bl[i].speed * track.xSpeed[bl[i].line];
-          bl[i].ySpeed = bl[i].speed * track.ySpeed[bl[i].line];
-          //step = distance / length of each step; distance of curent pos and next node in track; length of step is speed xy
-          bl[i].stepInLine = (int) abs( distance(bl[i].x,bl[i].y,track.x[bl[i].line],track.y[bl[i].line]) / sqrt( sqr(track.xSpeed[bl[i].line] * bl[i].speed) + sqr(track.ySpeed[bl[i].line] * bl[i].speed) ) );
-        }
-      }
-      //---draw balloons-----
-      image(bl[i].img,bl[i].x,bl[i].y,50,50);
-    }
+    int l;
     
     //>>>> null<<<<
+    // only draw balloons and weapons when player has clicked start
+    if (starting) {
+      //--------------draw balloons & calculate---------------//
+      Balloon bl [] = game.balloonList;
+      l = bl.length;
+      for (int i=0; i<l; i++) {
+        //---skip poped balloons----
+        if (bl[i].status == 2) 
+          continue;
+        
+        //  ---calculate pos-----
+        if (bl[i].stepInLine != 0 ) {
+          //balloon still in old line, keep moving
+          bl[i].x += bl[i].xSpeed;
+          bl[i].y += bl[i].ySpeed;
+          bl[i].stepInLine--;
+        } else {
+          //balloon in new line, change line, calculate new speed, calculate new step needed to finish line
+          bl[i].line += 1;
+          if (bl[i].status==0) bl[i].status = 1;
+          if (bl[i].line == track.x.length) {
+            game.health -= bl[i].health;
+            bl[i].status = 2;
+          } else {
+            bl[i].xSpeed = bl[i].speed * track.xSpeed[bl[i].line];
+            bl[i].ySpeed = bl[i].speed * track.ySpeed[bl[i].line];
+            //step = distance / length of each step; distance of curent pos and next node in track; length of step is speed xy
+            bl[i].stepInLine = (int) abs( distance(bl[i].x,bl[i].y,track.x[bl[i].line],track.y[bl[i].line]) / sqrt( sqr(track.xSpeed[bl[i].line] * bl[i].speed) + sqr(track.ySpeed[bl[i].line] * bl[i].speed) ) );
+          }
+        }
+        //---draw balloons-----
+        if (bl[i].status == 0) 
+          continue; // do not draw balloon not yet in game
+        image(bl[i].img,bl[i].x,bl[i].y,50,50);
+      }
     
-    //-------draw weapons & calculate---------//
-    /*if (starting) {
+      //-------draw weapons & calculate---------//  
       Weapon wp [] = game.weaponList;
-      int l = wp.length;
+      l = wp.length;
       for (int i=0; i<l; i++) {
         wp[i].x += wp[i].speedX;
         wp[i].y += wp[i].speedY;
         image(wp[i].img, wp[i].x, wp[i].y);
         wp[i].pop();
       }
-    }*/
+    }
     
     //------------draw towers & calculate-----------//
     Tower tw []= game.towerList;
@@ -62,7 +72,8 @@ void draw () {
       if (tw[i] == game.chosenTower)
         ellipse(tw[i].x, tw[i].y, tw[i].shootRadius*2, tw[i].shootRadius*2);
       image(tw[i].img, tw[i].x, tw[i].y, 100, 100);
-      tw[i].shoot(i);
+      if (starting) 
+        tw[i].shoot(i);
     }
     
     //-------------draw mouse------------------//

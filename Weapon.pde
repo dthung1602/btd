@@ -15,8 +15,7 @@ abstract class Weapon {
   }
   
   void pop() {
-    for (int i=0; i<3; i++)
-      println("pop balloon ",i);
+      println("pop balloon");
   }
 }
 
