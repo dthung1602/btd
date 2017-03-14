@@ -23,7 +23,7 @@ class RedBalloon extends Balloon {
     img = loadImage("./Pic/redballoon.png");
     xSpeed = speed * track.xSpeed[0];
     ySpeed = speed * track.ySpeed[0];
-    stepInLine = (int) abs( (track.x[0]-x) / xSpeed ); // step = distance / length of each step; lenght of step is speed
+    stepInLine = (int) abs( (track.x[0]-x) / xSpeed ); // step = distance / length of each step; length of step is speed
     println(stepInLine);
   }
 }

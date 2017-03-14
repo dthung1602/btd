@@ -25,7 +25,7 @@ void draw () {
         bl[i].y += bl[i].ySpeed;
         bl[i].stepInLine--;
       } else {
-        //balloon in new line, change line, calculate new speed
+        //balloon in new line, change line, calculate new speed, calculate new step needed to finish line
         bl[i].line += 1;
         if (bl[i].line == track.x.length) {
           game.health -= bl[i].health;
@@ -37,11 +37,12 @@ void draw () {
           bl[i].stepInLine = (int) abs( distance(bl[i].x,bl[i].y,track.x[bl[i].line],track.y[bl[i].line]) / sqrt( sqr(track.xSpeed[bl[i].line] * bl[i].speed) + sqr(track.ySpeed[bl[i].line] * bl[i].speed) ) );
         }
       }
-      //---draw balloon-----
-      image(bl[i].img,bl[i].x,bl[i].y);
+      //---draw balloons-----
+      image(bl[i].img,bl[i].x,bl[i].y,50,50);
     }
     
-    /*---->>>> null */
+    //>>>> null<<<<<
+    
     //-------draw weapons & calculate---------//
     /*if (starting) {
       Weapon wp [] = game.weaponList;
@@ -52,7 +53,7 @@ void draw () {
         image(wp[i].img, wp[i].x, wp[i].y);
         wp[i].pop();
       }
-    }
+    }*/
     
     //------------draw towers & calculate-----------//
     Tower tw []= game.towerList;
@@ -60,25 +61,30 @@ void draw () {
     for (int i=0; i<l; i++) {
       if (tw[i] == game.chosenTower)
         ellipse(tw[i].x, tw[i].y, tw[i].shootRadius*2, tw[i].shootRadius*2);
-      image(tw[i].img, tw[i].x, tw[i].y);
-      tw[i].shoot();
+      image(tw[i].img, tw[i].x, tw[i].y, 100, 100);
+      tw[i].shoot(i);
     }
     
     //-------------draw mouse------------------//
     //draw building tower
-    if (game.chosenTower != null) {
-      for (int i=0; i<l; i++) 
+    if (game.chosenTower == null) {
+      for (int i=0; i<l; i++) {
+        //>>> optimize <<<
+        game.buildingTowerConflict = false;
+        game.buildingTower.x = mouseX;
+        game.buildingTower.y = mouseY;
         if (touch(game.buildingTower,tw[i])) {
           game.buildingTowerConflict = true;
           break;
         }
+      }
       if (game.buildingTowerConflict)
         fill(RED);
       else 
         fill(WHITE);
       ellipse(mouseX, mouseY, game.buildingTower.shootRadius*2, game.buildingTower.shootRadius*2);
-      image(game.chosenTower.img, mouseX, mouseY);
-    }*/
+      image(game.buildingTower.img, mouseX, mouseY,100,100);
+    }
     
     //check mouse on any button
     fill(WHITE);

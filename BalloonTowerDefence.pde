@@ -22,6 +22,7 @@ void setup() {
   size(800,500);
   //background(./Pic/loading.png);
   rectMode(CORNERS);
+  imageMode(CENTER);
   w = width/2;
   h = height/2;
   noStroke();
@@ -39,7 +40,7 @@ void setup() {
   track.trackWidth = 20;
   track.bg = loadImage("./Pic/background.jpg");
   track.balloonList = new Balloon [] {new RedBalloon(-900,200), new RedBalloon(-500,200), new RedBalloon(-300,200)};
-  track.defaultHealth = 2;
+  track.defaultHealth = 5;
   track.defaultMoney = 100;
   
   //*create game
@@ -50,6 +51,9 @@ void setup() {
   game.health = track.defaultHealth;
   game.money = track.defaultMoney;
   game.balloonCount = game.balloonList.length;
+  game.towerList = new Tower [] {new DartMonkey(150,200), new DartMonkey(500,300), new DartMonkey(700,400)};
+  //game.chosenTower = game.towerList[0];
+  game.buildingTower = new DartMonkey(0,0);
   
   
   //create menu screen
@@ -59,9 +63,9 @@ void setup() {
   
   //create game screen
   bg = loadImage("./Pic/background.jpg");
-  buttonList = new Button[] {new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
+  buttonList = new Button[] {};//{new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
   playScreen = new Screen(bg, buttonList, color(0,0,255,100));
-    println("ok");
+  
   
   //-----------show menu--------------//
   menu();

@@ -14,17 +14,18 @@ abstract class Tower {
     price = tmp_price;
   }
   
-  void shoot() {}
+  void shoot(int tmp) {}
 }
+
 
 class DartMonkey extends Tower {
   DartMonkey(float x, float y){
-    super(x,y,15,15,screen.bg,150);
+    super(x,y,150,30,loadImage("./Pic/monkey.png"),150);
   }
   
-  
-  void shoot() {
-    println("pang pang pang");
+  void shoot(int tmp) {
+    //should have delay time
+    println("shoot ballon ",tmp);
   }
 }
 
