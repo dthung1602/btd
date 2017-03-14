@@ -19,6 +19,7 @@ abstract class Button {
 }
 
 
+// test class
 class GoButton extends Button {
   PImage img;/**/
   
@@ -34,6 +35,7 @@ class GoButton extends Button {
 }
 
 
+// -----------------menu buttons---------------------
 class NewGameButton extends Button {
   PImage img;/**/
   
@@ -50,6 +52,41 @@ class NewGameButton extends Button {
 }
 
 
+class SaveGameButton extends Button {
+  //>>> save current game to file
+}
+
+class LoadGameButton extends Button {
+  //>>> load game from file 
+}
+
+class HighScoreButton extends Button {}
+
+class QuitButton extends Button {}
+
+
+//--------------create & sell towers-----------------
+class NewDarkMonkey extends Button {
+  PImage img;
+  
+  NewDarkMonkey (float x1, float y1, float x2, float y2) {
+    super(x1,y1,x2,y2);
+  }
+  
+  void action() {
+    //>>> if not building  and if enough money <<<
+    game.buildingTower = new DartMonkey(mouseX,mouseY);
+    game.chosenTower = null;
+    //>>> else cancel building
+    //game.buildingTower = null; <<<<
+  }
+}
+
+
+class SellButton extends Button {}
+
+
+//------------------game control buttons---------------------
 class StartButton extends Button {
   PImage img;/**/
   
@@ -59,32 +96,24 @@ class StartButton extends Button {
   
   void action() {
     println("Play button");
-    frameRate(40);
+    frameRate(40); // default play slowly when start
     starting = true;
   } 
 }
 
+class PauseButton extends Button {}
+
+class ResumeButton extends Button {}
+
+class MenuButton extends Button {}
 
 class FastForwardButton extends Button {
-  PImage img;/**/
-  
-  FastForwardButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1,tmp_y1,tmp_x2,tmp_y2);
-  }
-  
-  void action() {
-    frameRate(60);
-  } 
+  //>>> increase frame rate 
 }
 
 class SlowDownButton extends Button {
-  PImage img;/**/
-  
-  SlowDownButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1,tmp_y1,tmp_x2,tmp_y2);
-  }
-  
-  void action() {
-    frameRate(40);
-  } 
+  //>>> reduce frame rate
 }
+
+class PlayAgainButton extends Button {}
+// when lose only

@@ -63,12 +63,18 @@ void setup() {
   
   //create game screen
   bg = loadImage("./Pic/background.jpg");
-  buttonList = new Button[] {new NewGameButton(0,0,100,100), new GoButton(200,0,400,200)};//{new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
+  buttonList = new Button[] {new NewDarkMonkey(0,0,100,100), new GoButton(200,0,400,200)};//{new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
   playScreen = new Screen(bg, buttonList, color(0,0,255,100));
   
   
   //-----------show menu--------------//
-  menu();
+  //load menu background, buttons
+  screen = menuScreen;
+  fill(WHITE);
+  background(screen.bg);
+  rect(100,100,200,300);
+  rect(200,100,300,300);
+  fill(0,255,255,100);
   
   //----------tmp------------//
 }
