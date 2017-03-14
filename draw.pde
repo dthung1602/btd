@@ -41,7 +41,7 @@ void draw () {
       image(bl[i].img,bl[i].x,bl[i].y,50,50);
     }
     
-    //>>>> null<<<<<
+    //>>>> null<<<<
     
     //-------draw weapons & calculate---------//
     /*if (starting) {
@@ -67,7 +67,9 @@ void draw () {
     
     //-------------draw mouse------------------//
     //draw building tower
-    if (game.chosenTower == null) {
+    //check if building tower touch the balloon's path
+    //>>>> check if tower touch the road <<<
+    if (game.buildingTower != null) {
       for (int i=0; i<l; i++) {
         //>>> optimize <<<
         game.buildingTowerConflict = false;
@@ -78,11 +80,13 @@ void draw () {
           break;
         }
       }
+      //the building tower color circle
       if (game.buildingTowerConflict)
         fill(RED);
       else 
         fill(WHITE);
       ellipse(mouseX, mouseY, game.buildingTower.shootRadius*2, game.buildingTower.shootRadius*2);
+      //draw tower
       image(game.buildingTower.img, mouseX, mouseY,100,100);
     }
     

@@ -25,7 +25,7 @@ class DartMonkey extends Tower {
   
   void shoot(int tmp) {
     //should have delay time
-    println("shoot ballon ",tmp);
+    //println("shoot ballon ",tmp);
   }
 }
 

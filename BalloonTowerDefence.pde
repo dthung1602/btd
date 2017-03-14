@@ -1,7 +1,7 @@
 //constant
 float SELL_PERCENT = 0.8;
 int CLICK_TIME = 100;
-color WHITE = color(100,100,100,100);
+final color WHITE = color(100,100,100,100);
 color RED = color(255,0,0,100);
 float w;
 float h;
@@ -63,7 +63,7 @@ void setup() {
   
   //create game screen
   bg = loadImage("./Pic/background.jpg");
-  buttonList = new Button[] {};//{new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
+  buttonList = new Button[] {new NewGameButton(0,0,100,100), new GoButton(200,0,400,200)};//{new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
   playScreen = new Screen(bg, buttonList, color(0,0,255,100));
   
   
