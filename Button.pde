@@ -77,10 +77,10 @@ class NewDarkMonkey extends Button {
   
   void action() {
     //>>> if not building  and if enough money <<<
-    game.buildingTower = new DartMonkey(mouseX,mouseY);
-    game.chosenTower = null;
+    buildingTower = new DartMonkey(mouseX,mouseY);
+    chosenTower = null;
     //>>> else cancel building
-    //game.buildingTower = null; <<<<
+    //buildingTower = null; <<<<
   }
 }
 

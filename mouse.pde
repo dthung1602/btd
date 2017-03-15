@@ -10,23 +10,23 @@ void mousePressed() {
       return;
     }
     
-  if (game.buildingTower == null) {
+  if (buildingTower == null) {
     //check if player selects tower
-    Tower tw []= game.towerList;
+    Tower tw []= towerList;
     l = tw.length;
     for (int i=0; i<l; i++)
       if (distance(mouseX,mouseY,tw[i].x,tw[i].y) <= tw[i].buildRadius) {
-        game.chosenTower = tw[i];
+        chosenTower = tw[i];
         return;
       }
-    game.chosenTower = null;
+    chosenTower = null;
     return;
   } else {
     //check if player builds tower
-    if (!game.buildingTowerConflict) {
-      game.towerList = (Tower []) append(game.towerList, game.buildingTower);
-      game.money -= game.buildingTower.price;
-      game.buildingTower = null;
+    if (!buildingTowerConflict) {
+      towerList = (Tower []) append(towerList, buildingTower);
+      money -= buildingTower.price;
+      buildingTower = null;
     }
   } 
 }

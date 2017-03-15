@@ -3,9 +3,9 @@ abstract class Weapon {
   float speedX, speedY;
   float speed;
   float popRadius;
+  int popCount;
   int damage;
   PImage img;
-  int popCount;
   
   Weapon (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
     x = tmp_x;
