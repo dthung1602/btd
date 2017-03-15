@@ -1,7 +1,7 @@
 //constant
 float SELL_PERCENT = 0.8;
 int CLICK_TIME = 100;
-final color WHITE = color(100,100,100,100);
+color WHITE = color(100,100,100,100);
 color RED = color(255,0,0,100);
 float w;
 float h;
@@ -39,8 +39,8 @@ void setup() {
   track.ySpeed = new float [] {0,0,5,0};
   track.trackWidth = 20;
   track.bg = loadImage("./Pic/background.jpg");
-  track.balloonList = new Balloon [] {new RedBalloon(-900,200), new RedBalloon(-500,200), new RedBalloon(-300,200)};
-  track.defaultHealth = 5;
+  track.balloonList = new Balloon [] {new RedBalloon(-5000,200),new RedBalloon(-4000,200),new RedBalloon(-3000,200),new RedBalloon(-900,200), new RedBalloon(-500,200), new RedBalloon(-300,200)};
+  track.defaultHealth = 50;
   track.defaultMoney = 100;
   
   //*create game

@@ -30,6 +30,8 @@ class GoButton extends Button {
   void action() {
     println("Go Go Go");
     pausing = true;
+    screen = menuScreen;
+    background(screen.bg);
   }
 }
 
