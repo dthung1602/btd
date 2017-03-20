@@ -105,6 +105,7 @@ void drawMouse() {
     if (b.containPoint(mouseX, mouseY)) {
       rect(b.x1, b.y1, b.x2, b.y2);
       return;
+    }
   }
   
   //--------draw building tower---------
