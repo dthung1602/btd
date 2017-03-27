@@ -25,13 +25,13 @@ boolean buildingTowerConflict = false;
 Weapon weaponList [] = {};
 
 int balloonCount = 0;//>>>><<<
-int health = 0;
+int health = 500;
 int money = 0;
 
 
 void setup() {
   //----------setup basic----------//
-  size(800,500);
+  size(799,519);
   //background(./Pic/loading.png);
   rectMode(CORNERS);
   imageMode(CENTER);
@@ -44,13 +44,13 @@ void setup() {
   
       
   //create menu screen
-  PImage bg = loadImage("./Pic/menubg.jpg");
+  PImage bg = loadImage("./BTD/map.png");
   Button buttonList [] = new Button[] {new NewGameButton(100,100,200,300), new GoButton(200,100,300,300)};
   menuScreen = new Screen(bg, buttonList, color(255,0,0,100));
   
   //create game screen
-  bg = loadImage("./Pic/background.jpg");
-  buttonList = new Button[] {new NewDarkMonkey(0,0,100,100), new GoButton(200,0,400,200)};//{new GoButton(0,0,w,h), new GoButton(w,0,width,h), new NewGameButton(0,h,width,height)};
+  bg = loadImage("./BTD/map.png");
+  buttonList = new Button[] {new NewDarkMonkey(0,0,100,100), new GoButton(200,0,400,200)};
   playScreen = new Screen(bg, buttonList, color(0,0,255,100));
   
   

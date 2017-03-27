@@ -7,7 +7,7 @@ float distance (float x1, float y1, float x2, float y2) {
 }
 
 float distance (Weapon wp, Balloon bl) {
-  return sqrt(sqr(wp.x-bl.x) + sqr(wp.y-bl.y));
+  return sqrt(sqr(wp.x-track.x[bl.position]) + sqr(wp.y-track.y[bl.position]));
 }
 
 float distance (Tower tw1, Tower tw2) {

@@ -12,11 +12,10 @@ void mousePressed() {
     
   if (buildingTower == null) {
     //check if player selects tower
-    Tower tw []= towerList;
-    l = tw.length;
+    l = towerList.length;
     for (int i=0; i<l; i++)
-      if (distance(mouseX,mouseY,tw[i].x,tw[i].y) <= tw[i].buildRadius) {
-        chosenTower = tw[i];
+      if (distance(mouseX,mouseY,towerList[i].x,towerList[i].y) <= towerList[i].buildRadius) {
+        chosenTower = towerList[i];
         return;
       }
     chosenTower = null;

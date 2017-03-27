@@ -1,7 +1,7 @@
 void draw () {
   if (!pausing) {
-    if (gameEnd())
-      return;
+    //if (gameEnd())
+    //  return;
     
     background(screen.bg);
     fill(WHITE);
@@ -39,6 +39,7 @@ boolean gameEnd () {
     //>>> let user choose
     return true;
   }
+  return false;
 }
 
 
@@ -63,10 +64,10 @@ void drawBalloons() {
     }
 
     //----do not draw balloon not yet in game-----
-    if (bballoonList[i].status == 0) 
+    if (balloonList[i].status == 0) 
       continue; 
 
-    image(balloonList[i].img, balloonList[i].x, balloonList[i].y, 50, 50);
+    image(balloonList[i].img, track.x[balloonList[i].position], track.y[balloonList[i].position], 50, 50);
   }
 }
 
@@ -86,7 +87,7 @@ void drawTower() {
   for (int i=0; i<towerList.length; i++) {
     if (towerList[i] == chosenTower)
       ellipse(towerList[i].x, towerList[i].y, towerList[i].shootRadius*2, towerList[i].shootRadius*2);
-    image(towerList[i].img, towerList[i].x, towerList[i].y, 100, 100);
+    image(towerList[i].img, towerList[i].x, towerList[i].y, 50, 50);
   }
 
   //------shoot------
@@ -113,23 +114,25 @@ void drawMouse() {
     //>>>> check if tower touch the road <<<
     
     //check if the building tower touch the others
-    for (int i=0; i<l; i++) {
-      //>>> optimize <<<
-      buildingTowerConflict = false;
-      buildingTower.x = mouseX;
-      buildingTower.y = mouseY;
-      if (touch(buildingTower,tw[i])) 
+    buildingTowerConflict = false;
+    buildingTower.x = mouseX;
+    buildingTower.y = mouseY;
+    for (int i=0; i<towerList.length; i++) {
+      //>>> optimize <<< 
+      if (touch(buildingTower,towerList[i])) {
         buildingTowerConflict = true;
+        break;
+      }
     }
     
     //select building tower color circle
     if (buildingTowerConflict)
       fill(RED);
     else 
-    fill(WHITE);
+      fill(WHITE);
     
     //draw tower
     ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);
-    image(buildingTower.img, mouseX, mouseY, 100, 100);
+    image(buildingTower.img, mouseX, mouseY, 50, 50);
   }  
 }
