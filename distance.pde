@@ -25,3 +25,9 @@ boolean touch (Weapon wp, Balloon bl) {
     return false;
   return true;
 }
+
+boolean touch (Tower tw, float x, float y) {
+  if (distance(tw.x,tw.y,x,y) < tw.buildRadius + track.trackWidth) 
+    return true;
+  return false;
+}

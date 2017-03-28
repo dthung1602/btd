@@ -28,6 +28,8 @@ int balloonCount = 0;//>>>><<<
 int health = 500;
 int money = 0;
 
+//thread lock
+int draw;
 
 void setup() {
   //----------setup basic----------//
@@ -50,7 +52,7 @@ void setup() {
   
   //create game screen
   bg = loadImage("./BTD/map.png");
-  buttonList = new Button[] {new NewDarkMonkey(0,0,100,100), new GoButton(200,0,400,200)};
+  buttonList = new Button[] {new NewDarkMonkey(0,0,100,100), new GoButton(200,0,400,200), new SellButton(100,0,200,100) };
   playScreen = new Screen(bg, buttonList, color(0,0,255,100));
   
   
@@ -58,4 +60,13 @@ void setup() {
   menu();
   
   //----------tmp------------//
+  track = new Track("test");
+  String string_list [] = loadStrings("../test/test_path/data");
+  track.x = new float [string_list.length];
+  track.y = new float [string_list.length];
+  for (int i=0; i<string_list.length; i++) {
+    track.x[i] = toInt(split(string_list[i]," ")[0]);
+    track.y[i] = toInt(split(string_list[i]," ")[1]);
+  }
+  balloonList = append (balloonList, new RedBalloon(0));
 }

@@ -1,7 +1,7 @@
 class Track {
   int level;
   PImage bg;
-  int trackWidth;
+  int trackWidth = 10;
   
   int defaultHealth;
   int defaultMoney;
@@ -13,6 +13,7 @@ class Track {
   Balloon balloonList [];
     
   Track(String fileName) {
-    //read file to init track
+    x = new float [0];
+    y = new float [0];
   }
 }

@@ -69,8 +69,6 @@ class QuitButton extends Button {}
 
 //--------------create & sell towers-----------------
 class NewDarkMonkey extends Button {
-  PImage img;
-  
   NewDarkMonkey (float x1, float y1, float x2, float y2) {
     super(x1,y1,x2,y2);
   }
@@ -85,7 +83,22 @@ class NewDarkMonkey extends Button {
 }
 
 
-//class SellButton extends Button {}
+class SellButton extends Button {
+  SellButton (float x1, float y1, float x2, float y2) {
+    super(x1,y1,x2,y2);
+  }
+  
+  void action() {
+    if (chosenTower != null) {
+      for (int i=0; i<towerList.length; i++)
+        if (towerList[i] == chosenTower) {
+          towerList = (Tower []) concat(subset(towerList,0,i),subset(towerList,i+1));
+          money +=  (int) chosenTower.price * SELL_PERCENT;
+          return;
+        }
+    }
+  }
+}
 
 
 //------------------game control buttons---------------------

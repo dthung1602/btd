@@ -74,10 +74,12 @@ void drawBalloons() {
 
 void drawWeapons() {
   for (int i=0; i<weaponList.length; i++) {
-    weaponList[i].x += weaponList[i].speedX;
-    weaponList[i].y += weaponList[i].speedY;
-    weaponList[i].pop(); //>>skip draw if poped balloon;
-    image(weaponList[i].img, weaponList[i].x, weaponList[i].y);
+    if (weaponList[i].status==0) {
+      weaponList[i].x += weaponList[i].speedX;
+      weaponList[i].y += weaponList[i].speedY;
+      weaponList[i].pop(); //>>skip draw if poped balloon;
+      image(weaponList[i].img, weaponList[i].x, weaponList[i].y);
+    }
   }
 }
 
@@ -111,19 +113,26 @@ void drawMouse() {
   
   //--------draw building tower---------
   if (buildingTower != null) {
-    //>>>> check if tower touch the road <<<
-    
-    //check if the building tower touch the others
     buildingTowerConflict = false;
     buildingTower.x = mouseX;
     buildingTower.y = mouseY;
-    for (int i=0; i<towerList.length; i++) {
-      //>>> optimize <<< 
-      if (touch(buildingTower,towerList[i])) {
+    
+    //check if tower touch the road 
+    for (int i=0; i<track.x.length; i++)
+      if (touch(buildingTower,track.x[i],track.y[i])) {
         buildingTowerConflict = true;
         break;
       }
-    }
+    
+    //check if the building tower touch the others
+    if (!buildingTowerConflict)
+      for (int i=0; i<towerList.length; i++) {
+        //>>> optimize <<< 
+        if (touch(buildingTower,towerList[i])) {
+          buildingTowerConflict = true;
+          break;
+        }
+      }
     
     //select building tower color circle
     if (buildingTowerConflict)

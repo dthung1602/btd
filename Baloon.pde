@@ -1,12 +1,12 @@
 abstract class Balloon {
   int position;
-  float speed; // how fast the balloon move
+  float speed; 
   int health;
   PImage img;
   int status = 0; // 0 = not yet in game, 1 = in game, 2 = poped
     
-  Balloon(int tmp_pos) {
-    position = tmp_pos;
+  Balloon(int pos) {
+    position = pos;
   }
 }
 
@@ -19,3 +19,7 @@ class RedBalloon extends Balloon {
     img = loadImage("./Pic/redballoon.png");
   }
 }
+
+/*
+class BlueBalloon extends Balloon {}
+class GreenBalloon extends Balloon {}*/

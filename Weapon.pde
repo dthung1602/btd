@@ -5,6 +5,7 @@ abstract class Weapon {
   float popRadius;
   int popCount;
   int damage;
+  int status;
   PImage img;
   
   Weapon (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
@@ -12,6 +13,7 @@ abstract class Weapon {
     y = tmp_y;
     speedX = tmp_speedX;
     speedY = tmp_speedY;
+    status = 0;
   }
   
   void pop() {
