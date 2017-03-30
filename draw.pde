@@ -63,10 +63,6 @@ void drawBalloons() {
       continue;
     }
 
-    //----do not draw balloon not yet in game-----
-    if (balloonList[i].status == 0) 
-      continue; 
-
     image(balloonList[i].img, track.x[balloonList[i].position], track.y[balloonList[i].position], 50, 50);
   }
 }

@@ -38,7 +38,6 @@ class GoButton extends Button {
 
 // -----------------menu buttons---------------------
 class NewGameButton extends Button {
-  PImage img;/**/
   
   NewGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
     super(tmp_x1,tmp_y1,tmp_x2,tmp_y2);
@@ -65,6 +64,7 @@ class LoadGameButton extends Button {
 class HighScoreButton extends Button {}
 
 class QuitButton extends Button {}
+  //>>> use exit function 
 */
 
 //--------------create & sell towers-----------------
@@ -74,13 +74,16 @@ class NewDarkMonkey extends Button {
   }
   
   void action() {
-    //>>> if not building  and if enough money <<<
-    buildingTower = new DartMonkey(mouseX,mouseY);
-    chosenTower = null;
-    //>>> else cancel building
-    //buildingTower = null; <<<<
+    if (buildingTower instanceof DarkMonkey)
+      buildingTower = null;
+    else {///<<< check if player have enough money
+      buildingTower = new DartMonkey(mouseX,mouseY);
+      chosenTower = null;
+    }
   }
 }
+//>>> NewBombTower
+//>>> NewSuperMonkey
 
 
 class SellButton extends Button {
@@ -102,24 +105,32 @@ class SellButton extends Button {
 
 
 //------------------game control buttons---------------------
-class StartButton extends Button {
-  PImage img;/**/
-  
+class StartButton extends Button {  
   StartButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
     super(tmp_x1,tmp_y1,tmp_x2,tmp_y2);
   }
   
   void action() {
     println("Play button");
-    frameRate(40); // default play slowly when start
+    frameRate(25); // default play slowly when start
     starting = true;
   } 
 }
+
 /*
-class PauseButton extends Button {}
+class FastForwardButton extends Button {
+  //>>> increase frame rate to 50
+}
+
+class SlowDownButton extends Button {
+  //>>> reduce frame rate to 25
+}
+
 
 class ResumeButton extends Button {}
+  >> pausing = false
 */
+
 class MenuButton extends Button {
   PImage img;
   
@@ -138,14 +149,11 @@ class MenuButton extends Button {
     fill(0,255,255,100);
   }
 }
-/*
-class FastForwardButton extends Button {
-  //>>> increase frame rate 
-}
 
-class SlowDownButton extends Button {
-  //>>> reduce frame rate
-}
 
-class PlayAgainButton extends Button {}
-// when lose only*/
+/*class PlayAgainButton extends Button {}
+ when lose only
+ reset health, towerList, ...
+ starting = false
+
+*/

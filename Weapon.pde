@@ -1,11 +1,9 @@
 abstract class Weapon {
   float x,y;
   float speedX, speedY;
-  float speed;
   float popRadius;
-  int popCount;
-  int damage;
-  int status;
+  int damage; // damage cause to balloon 
+  int status; // 0 = still in game; 1 = popped balloon and out of game 
   PImage img;
   
   Weapon (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
@@ -16,9 +14,7 @@ abstract class Weapon {
     status = 0;
   }
   
-  void pop() {
-      println("pop balloon");
-  }
+  void pop() {}
 }
 
 
