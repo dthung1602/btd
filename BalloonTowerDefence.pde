@@ -68,5 +68,5 @@ void setup() {
     track.x[i] = toInt(split(string_list[i]," ")[0]);
     track.y[i] = toInt(split(string_list[i]," ")[1]);
   }
-  balloonList = append (balloonList, new RedBalloon(0));
+  balloonList = (Balloon []) append(balloonList, new RedBalloon(0));
 }
