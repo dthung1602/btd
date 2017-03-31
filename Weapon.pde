@@ -1,9 +1,9 @@
 abstract class Weapon {
-  float x,y;
+  float x, y;
   float speedX, speedY;
   float popRadius;
-  int damage; // damage cause to balloon 
-  int status; // 0 = still in game; 1 = popped balloon and out of game 
+  int damage;                     // damage cause to balloon 
+  int status;                     // 0 = still in game; 1 = popped balloon and out of game 
   PImage img;
   
   Weapon (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
@@ -23,3 +23,9 @@ class Dart extends Weapon{
     super(tmp_x, tmp_y, tmp_speedX, tmp_speedY);
   }
 }
+
+/*
+class Ice extends Weapon{  }
+class Bomb extends Weapon{  }
+class Laser extends Weapon{  }
+*/

@@ -15,10 +15,11 @@ int toInt (String s) {
       case '8': tmp = 8; break;
       case '9': tmp = 9; break;
     }
-   n = n*10 + tmp;
+    n = n*10 + tmp;
   }
   return n;
 }
+
 
 // int to string
 String toString (int x) {

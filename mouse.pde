@@ -1,7 +1,5 @@
-/*buttons, towers do not overlap*/
-
 void mousePressed() {
-  //check if button is pressed
+  //check if any button is pressed
   Button bt [] = screen.buttonList;
   int l = bt.length;
   for (int i=0; i<l; i++)
@@ -19,7 +17,6 @@ void mousePressed() {
         return;
       }
     chosenTower = null;
-    return;
   } else {
     //check if player builds tower
     if (!buildingTowerConflict) {

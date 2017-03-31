@@ -20,7 +20,7 @@ abstract class Tower {
 
 class DartMonkey extends Tower {
   DartMonkey(float x, float y) {
-    super(x,y,100,20,loadImage("./BTD/dart_monkey.png"),150);
+    super(x, y, 100, 20, dartMonkeyPic, 150);
 }
   
   void shoot(int tmp) {

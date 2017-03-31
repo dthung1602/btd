@@ -1,4 +1,4 @@
-void draw () {
+void draw() {
   if (!pausing) {
     //if (gameEnd())
     //  return;
@@ -24,7 +24,7 @@ void draw () {
 }
 
 
-boolean gameEnd () {
+boolean gameEnd() {
   if (health<=0) {
     println("LOSE!");
     //>>> show score;
@@ -53,7 +53,7 @@ void drawBalloons() {
     balloonList[i].position += balloonList[i].speed;
 
     //-----check if balloon in game-----
-    if (balloonList[i].status == 0 && balloonList[i].position > track.posInGame)
+    if (balloonList[i].status == 0)
       balloonList[i].status = 1;
 
     //----check if balloon escape-----
@@ -123,7 +123,6 @@ void drawMouse() {
     //check if the building tower touch the others
     if (!buildingTowerConflict)
       for (int i=0; i<towerList.length; i++) {
-        //>>> optimize <<< 
         if (touch(buildingTower,towerList[i])) {
           buildingTowerConflict = true;
           break;
