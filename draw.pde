@@ -18,6 +18,7 @@ void draw() {
 
     drawTower();
     drawMouse();
+    showInfo();
   } else {
     delay(CLICK_TIME);
   }
@@ -139,4 +140,12 @@ void drawMouse() {
     ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);
     image(buildingTower.img, mouseX, mouseY, 50, 50);
   }  
+}
+
+
+void showInfo() {
+  textFont(fontSmall);
+  fill(255,0,0);
+  text(health, 725, 20);
+  text(money, 725, 45);
 }
