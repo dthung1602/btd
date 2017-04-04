@@ -1,7 +1,6 @@
 class Track {
   PImage bg;
   int trackWidth;
-  int round;  
   int defaultHealth;
   int defaultMoney;
     

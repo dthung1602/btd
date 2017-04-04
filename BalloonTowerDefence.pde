@@ -44,6 +44,12 @@ PImage redBalloonPic;
 PImage blueBalloonPic;
 PImage greenBalloonPic;
 PImage yellowBalloonPic;
+PImage pinkBalloonPic;
+PImage rainbowBalloonPic;
+
+PImage dartPic;
+PImage bombPic;
+PImage laserPic;
 
 PFont fontSmall;
 PFont fontMedium;
@@ -65,15 +71,23 @@ Tower chosenTower = null;                 // the tower that currently being sele
 Tower buildingTower = null;               // the tower to-be-built
 boolean buildingTowerConflict = false;    // true if buildingTower too close to balloon path or to other towers
 
-int balloonCount = 0;                     // count number of popped balloons
+int popCount = 0;                     // count number of popped balloons in current round
 int health = 0;
 int money = 0;
 
+int totalRoundHealth = 50;       // total health of balloons in current round
+int createdRoundHealth = 0;      // total health of created balloons in current round
+int totalRounds = 30;            // total rounds of a map
+int currentRound = 1;      
+float difficultyLevel = 1.5;     // level of difficulty
+int oldFrame = 0;                // old frameCount
+int balloonNum = 0;            // number of balloon in a round havebeen created
+int balloonDelay = 25;
 
 void setup() {
   
   //--------------------setup basic---------------------//
-  size(799, 519);
+  size(800, 520);
   //background(loadImage("./Pic/loading.png"));
   rectMode(CORNERS);
   imageMode(CENTER);
@@ -85,17 +99,23 @@ void setup() {
   
   //-----------------------load images-----------------------//
   //balloons' images
-  redBalloonPic    = loadImage("./Pic/redballoon.png");
-  blueBalloonPic   = loadImage("./Pic/redballoon.png");
-  greenBalloonPic  = loadImage("./Pic/redballoon.png");
-  yellowBalloonPic = loadImage("./Pic/redballoon.png");
+  redBalloonPic     = loadImage("./Pic/redballoon.png");
+  blueBalloonPic    = loadImage("./Pic/blueballoon.png");
+  greenBalloonPic   = loadImage("./Pic/greenballoon.png");
+  yellowBalloonPic  = loadImage("./Pic/yellowballoon.png");
+  pinkBalloonPic    = loadImage("./Pic/pinkballoon.png");
+  rainbowBalloonPic = loadImage("./Pic/rainbowballoon.png");
   
   //towers' images
   dartMonkeyPic  = loadImage("./Pic/dart_monkey.png");
-  iceTowerPic    = loadImage("./Pic/dart_monkey.png");
-  bombTowerPic   = loadImage("./Pic/dart_monkey.png");
-  superMonkeyPic = loadImage("./Pic/dart_monkey.png");
+  iceTowerPic    = loadImage("./Pic/ice_tower.png");
+  bombTowerPic   = loadImage("./Pic/bomb_tower.png");
+  superMonkeyPic = loadImage("./Pic/super_monkey.png");
   
+  //weapons' images
+  dartPic  = loadImage("./Pic/dart.png");
+  bombPic  = loadImage("./Pic/dart.png");
+  laserPic = loadImage("./Pic/dart.png");
   
   //-----------------------load fonts------------------------//
   fontSmall  = loadFont("./Font/font_small.vlw");
@@ -108,71 +128,50 @@ void setup() {
   Button buttonList [];
   
   //---------create menu screen-----------
-  bg = loadImage("./Pic/map.png");
+  bg = loadImage("./Pic/map2.jpg");
   
   buttonList = new Button[] {
-    new NewGameButton(100, 100, 200, 300), 
-    new GoButton(200, 100, 300, 300)
+    new NewGameButton(100, 100, 200, 300)
   };
   
   menuScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
 
-  //--------create game screen-------------
-  bg = loadImage("./Pic/map.png");
+  //---------create menu screen-----------
+  bg = loadImage("./Pic/map1.jpg");
   
   buttonList = new Button[] {
-    new NewDarkMonkey(0, 0, 100, 100), 
-    new GoButton(200, 0, 400, 200), 
-    new SellButton(100, 0, 200, 100)
+    new NewDartMonkey(0, 0, 100, 100),
+    new NewIceTower(0, 100, 100, 200),
+    new NewBombTower(0, 200, 100, 300),
+    new NewSuperMonkey(0, 300, 100, 400),
   };
   
-  playScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
-
-  //---------create win screen-------------
-  bg = loadImage("./Pic/map.png");
-  
-  buttonList = new Button[] {
-    new SellButton(100, 0, 200, 100)
-  };
-  
-  winScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
-  
-  //-----------create lose screen-------------
-  bg = loadImage("./Pic/map.png");
-  
-  buttonList = new Button[] {
-    new SellButton(100, 0, 200, 100)
-  };
-  
-  loseScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
-  
-  //-----------create high score screen-------------
-  bg = loadImage("./Pic/map.png");
-  
-  buttonList = new Button[] {
-    new SellButton(100, 0, 200, 100)
-  };
-  
-  highScoreScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
-  
+  playScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
   
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
   fill(WHITE);
   background(screen.bg);
   rect(100,100,200,300);
-  rect(200,100,300,300);
   fill(0,255,255,100);
 
 
   //--------------------------------tmp--------------------------------//
   track = new Track("test");
-  String string_list [] = loadStrings("../test/test_path/data");
+  String string_list [] = loadStrings("./Data/data");
   track.x = new float [string_list.length];
   track.y = new float [string_list.length];
   for (int i=0; i<string_list.length; i++) {
     track.x[i] = toInt(split(string_list[i], " ")[0]);
     track.y[i] = toInt(split(string_list[i], " ")[1]);
   }
-  balloonList = (Balloon []) append(balloonList, new RedBalloon(0));
+  balloonList = new Balloon [] {
+    new GreenBalloon(),
+    new BlueBalloon(),
+    new RainbowBalloon(),
+    new RedBalloon(),
+  };
+  balloonList[0].status = 0;
+  health = 100;
+  money = 500;
 }

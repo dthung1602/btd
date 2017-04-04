@@ -19,23 +19,6 @@ abstract class Button {
 }
 
 
-// test class, delete in real game
-class GoButton extends Button {
-  PImage img;
-  
-  GoButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
-  }
-  
-  void action() {
-    println("Go Go Go");
-    pausing = true;
-    screen = menuScreen;
-    background(screen.bg);
-  }
-}
-
-
 // -----------------menu buttons---------------------
 class NewGameButton extends Button {
   NewGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
@@ -53,40 +36,137 @@ class NewGameButton extends Button {
   }
 }
 
-/*
+/*Vlong's job
+*/
 class SaveGameButton extends Button {
   //>>> save current game to file
+  SaveGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    
+  }
 }
+
 
 class LoadGameButton extends Button {
   //>>> load game from file 
+  LoadGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+
+  void action(){
+    
+  }
 }
 
-class HighScoreButton extends Button {}
 
-class QuitButton extends Button {}
+class HighScoreButton extends Button {
+  HighScoreButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    
+  }
+}
+
+class QuitButton extends Button {
+  QuitButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1,tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    exit();
+  }
+}
   //>>> use exit function 
-*/
+
 
 //--------------create & sell towers-----------------
-class NewDarkMonkey extends Button {
-  NewDarkMonkey (float x1, float y1, float x2, float y2) {
+class NewDartMonkey extends Button {
+  NewDartMonkey (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
   }
   
   void action() {
-    if (buildingTower instanceof DartMonkey)
+    //cancel buying
+    if (buildingTower instanceof DartMonkey) {
       buildingTower = null;
-    else {
-      ///<<< check if player have enough money
-      buildingTower = new DartMonkey(mouseX, mouseY);
-      chosenTower = null;
+      return;
     }
+    
+    //new tower
+    chosenTower = null;
+    buildingTower = new DartMonkey(mouseX, mouseY);
+    if (money < buildingTower.price) 
+      buildingTower = null;
   }
 }
-//>>> NewBombTower
-//>>> NewSuperMonkey
 
+
+class NewBombTower extends Button {
+  NewBombTower (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+  
+  void action() {
+    //cancel buying
+    if (buildingTower instanceof BombTower) {
+      buildingTower = null;
+      return;
+    }
+    
+    //new tower
+    chosenTower = null;
+    buildingTower = new BombTower(mouseX, mouseY);
+    if (money < buildingTower.price) 
+      buildingTower = null;
+  }
+}
+
+
+class NewSuperMonkey extends Button {
+  NewSuperMonkey (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+  
+  void action() {
+    //cancel buying
+    if (buildingTower instanceof SuperMonkey) {
+      buildingTower = null;
+      return;
+    }
+    
+    //new tower
+    chosenTower = null;
+    buildingTower = new SuperMonkey(mouseX, mouseY);
+    if (money < buildingTower.price) 
+      buildingTower = null;
+  }
+}
+
+
+class NewIceTower extends Button {
+  NewIceTower (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+  
+  void action() {
+    //cancel buying
+    if (buildingTower instanceof IceTower) {
+      buildingTower = null;
+      return;
+    }
+    
+    //new tower
+    chosenTower = null;
+    buildingTower = new IceTower(mouseX, mouseY);
+    if (money < buildingTower.price) 
+      buildingTower = null;
+  }
+}
 
 class SellButton extends Button {
   SellButton (float x1, float y1, float x2, float y2) {
@@ -113,24 +193,58 @@ class StartButton extends Button {
   }
   
   void action() {
-    frameRate(25);             // default play slowly when start
+    frameRate(SLOW);             // default play slowly when start
     starting = true;
   } 
 }
 
-/*
+
 class FastForwardButton extends Button {
   //>>> increase frame rate to 50
+  FastForwardButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+
+  void action() {
+   frameRate(FAST); 
+  }
 }
+
 
 class SlowDownButton extends Button {
   //>>> reduce frame rate to 25
+  SlowDownButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    frameRate(SLOW);
+  }
 }
 
 
-class ResumeButton extends Button {}
-  >> pausing = false
-*/
+class ResumeButton extends Button {
+  //>> pausing = false
+  ResumeButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    pausing = false;
+    screen = playScreen;
+  } 
+}
+
+
+class PauseButton extends Button {
+  PauseButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    pausing = !pausing;
+  }
+}
 
 
 class MenuButton extends Button {  
@@ -154,5 +268,21 @@ class MenuButton extends Button {
  when lose only
  reset health, towerList, ...
  starting = false
-
 */
+class PlayAgainButton extends Button {
+  PlayAgainButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
+   super(tmp_x1, tmp_y1, tmp_x2, tmp_y2); 
+  }
+  
+  void action() {
+    pausing = false;
+    screen = playScreen;
+    
+    //reset health, towerlist, weaponlist
+    towerList = new Tower[0];
+    weaponList = new Weapon[0];
+    health = track.defaultHealth;
+    money = track.defaultMoney;
+    currentRound = 1;
+  }
+}

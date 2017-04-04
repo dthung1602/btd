@@ -14,6 +14,10 @@ float distance(Tower tw1, Tower tw2) {
   return sqrt(sqr(tw1.x-tw2.x) + sqr(tw1.y-tw2.y)); 
 } 
 
+float distance(Tower tw , Balloon bl ){
+    return sqrt(sqr(tw.x-track.x[bl.position]) + sqr(tw.y-track.y[bl.position]));
+}
+
 boolean touch(Tower tw1, Tower tw2) {
   if (distance(tw1,tw2) > tw1.buildRadius + tw2.buildRadius)
     return false;
@@ -26,8 +30,20 @@ boolean touch(Weapon wp, Balloon bl) {
   return true;
 }
 
+boolean touchEx(Weapon wp, Balloon bl) {
+  if (distance(wp,bl) > wp.explodeRadius) 
+    return false;
+  return true;
+}
+
 boolean touch(Tower tw, float x, float y) {
   if (distance(tw.x,tw.y,x,y) < tw.buildRadius + track.trackWidth) 
     return true;
   return false;
+}
+
+boolean touch(Tower tw, Balloon bl ){
+  if (distance(tw,bl) <= tw.shootRadius)
+   return true;
+  return false; 
 }
