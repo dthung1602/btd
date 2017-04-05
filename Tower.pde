@@ -35,7 +35,7 @@ class DartMonkey extends Tower {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
-      if (touch(this, balloonList[i]) == true && balloonList[i].position > max)
+      if (touch(this, balloonList[i]) && balloonList[i].position > max)
         max = balloonList[i].position;
     }
 
@@ -73,7 +73,7 @@ class IceTower extends Tower {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
-      if (touch(this, balloonList[i]) == true) 
+      if (touch(this, balloonList[i])) 
         balloonList[i].freeze = freezeTime;
     }
   }
@@ -96,7 +96,7 @@ class BombTower extends Tower {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
-      if (touch(this, balloonList[i]) == true && balloonList[i].position > max)
+      if (touch(this, balloonList[i]) && balloonList[i].position > max)
         max = balloonList[i].position;
     }
 
@@ -136,7 +136,7 @@ class SuperMonkey extends Tower {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
-      if (touch(this, balloonList[i]) == true && balloonList[i].position > max)
+      if (touch(this, balloonList[i]) && balloonList[i].position > max)
         max = balloonList[i].position;
     }
 

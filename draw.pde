@@ -110,7 +110,7 @@ void drawMouse() {
   Button b;
   for (int i=0; i<screen.buttonList.length; i++) {
     b = screen.buttonList[i]; 
-    if (b.containPoint(mouseX, mouseY)) {
+    if (b.containPoint(mouseX, mouseY) && b.enable) {
       rect(b.x1, b.y1, b.x2, b.y2);
       return;
     }
@@ -162,6 +162,14 @@ void showInfo() {
   if (messageTime > 0) {
     messageTime -= 1;
     text(message,725,70);
+  }
+  
+  //draw sell button
+  if (chosenTower != null) {
+    screen.buttonList[0].enable = true;
+    image(sellButtonPic,750,340,60,60);
+  } else {
+    screen.buttonList[0].enable = false;
   }
 }
 

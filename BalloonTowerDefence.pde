@@ -2,7 +2,7 @@
 //                                                                                              //
 //                              PROJECT: BALLOON TOWER DEFENCE                                  //
 //                                                                                              //
-//          Class:      Computer Science Foundation                                                 //
+//          Class:      Computer Science Foundation                                             //
 //          Due date:   April 6th ,2017                                                         //
 //          Team member:    Duong Thanh Hung        Nguyen Tuan Kiet                            //
 //                          Nguyen Thanh Long       Huynh Vinh Long                             //
@@ -33,6 +33,8 @@ Screen playScreen;
 Screen winScreen;
 Screen loseScreen;
 Screen highScoreScreen;
+
+PImage sellButtonPic;
 
 PImage dartMonkeyPic;
 PImage iceTowerPic;
@@ -99,7 +101,7 @@ void setup() {
   frameRate(SLOW);
   
   
-  //-----------------------load images-----------------------//
+  //-----------------------load images-----------------------// 
   //balloons' images
   redBalloonPic     = loadImage("./Pic/redballoon.png");
   blueBalloonPic    = loadImage("./Pic/blueballoon.png");
@@ -118,6 +120,8 @@ void setup() {
   dartPic  = loadImage("./Pic/dart.png");
   bombPic  = loadImage("./Pic/dart.png");
   laserPic = loadImage("./Pic/dart.png");
+  
+  sellButtonPic     = loadImage("./Pic/sell_button.png");
   
   //-----------------------load fonts------------------------//
   fontSmall  = loadFont("./Font/font_small.vlw");
@@ -139,6 +143,7 @@ void setup() {
   //---------create menu screen-----------
   bg = loadImage("./Pic/map1.jpg");
   buttonList = new Button[] {
+    new SellButton(720, 310, 780, 370),
     new NewDartMonkey(0, 0, 100, 100),
     new NewIceTower(0, 100, 100, 200),
     new NewBombTower(0, 200, 100, 300),

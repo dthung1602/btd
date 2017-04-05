@@ -5,7 +5,7 @@ abstract class Balloon {
   PImage img;
   int status = 0;                  // 0 = in game, 1 = poped
   int freeze = 0;                  // freezing time
-    
+  
   Balloon() {}
 }
 

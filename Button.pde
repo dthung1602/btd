@@ -1,6 +1,7 @@
 abstract class Button {
   float x1, y1;
   float x2, y2;
+  boolean enable = true;
   
   Button(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
     x1 = tmp_x1;
@@ -179,6 +180,7 @@ class SellButton extends Button {
         if (towerList[i] == chosenTower) {
           towerList = (Tower []) concat(subset(towerList, 0, i), subset(towerList, i+1));
           money += (int) chosenTower.price*SELL_PERCENT;
+          chosenTower = null;
           return;
         }
     }
