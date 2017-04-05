@@ -1,10 +1,11 @@
 void draw() {
+  background(screen.bg);
+  
+  //only draw towers, balloons, ... when not pausing
   if (!pausing) {
+  
     //if (gameEnd())
     //  return;
-
-    background(screen.bg);
-    fill(WHITE);
 
     // check if player has finished round
     if (createdRoundHealth > totalRoundHealth)
@@ -18,14 +19,14 @@ void draw() {
     }
 
     drawTower();
-    drawMouse();
     showInfo();
-  } else {
-    delay(CLICK_TIME);
   }
+  
+  drawMouse();
 }
 
 
+//-------------------check if player has win or lost yet-------------------
 boolean gameEnd() {
   if (health<=0) {
     println("LOSE!");
@@ -45,6 +46,7 @@ boolean gameEnd() {
 }
 
 
+//--------------------draw and move balloons----------------------
 void drawBalloons() {
   for (int i=0; i<balloonList.length; i++) {
     //---skip poped balloons----
@@ -72,6 +74,7 @@ void drawBalloons() {
 }
 
 
+//--------------------draw and move weapons----------------------
 void drawWeapons() {
   for (int i=0; i<weaponList.length; i++) {
     if (weaponList[i].status==0) {
@@ -84,6 +87,7 @@ void drawWeapons() {
 }
 
 
+//--------------------draw towers and shoot----------------------
 void drawTower() {
   //-----draw tower-----
   for (int i=0; i<towerList.length; i++) {
@@ -99,8 +103,9 @@ void drawTower() {
 }
 
 
+/*------highlight buttons if mouse on them; draw building tower----------*/
 void drawMouse() {
-  //--------------check mouse on any button---------------
+  //-----check if mouse on any button-----
   fill(WHITE);
   Button b;
   for (int i=0; i<screen.buttonList.length; i++) {
@@ -137,7 +142,7 @@ void drawMouse() {
     if (buildingTowerConflict)
       fill(RED);
     else 
-    fill(WHITE);
+      fill(WHITE);
 
     //draw tower
     ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);
@@ -146,11 +151,18 @@ void drawMouse() {
 }
 
 
+//--------------print health, money, messages on screen-------------//
 void showInfo() {
   textFont(fontSmall);
   fill(255, 0, 0);
   text(money, 725, 20);
   text(health, 725, 45);
+  
+  //print message
+  if (messageTime > 0) {
+    messageTime -= 1;
+    text(message,725,70);
+  }
 }
 
 

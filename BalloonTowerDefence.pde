@@ -2,7 +2,7 @@
 //                                                                                              //
 //                              PROJECT: BALLOON TOWER DEFENCE                                  //
 //                                                                                              //
-//          Class:  Computer Science Foundation                                                 //
+//          Class:      Computer Science Foundation                                                 //
 //          Due date:   April 6th ,2017                                                         //
 //          Team member:    Duong Thanh Hung        Nguyen Tuan Kiet                            //
 //                          Nguyen Thanh Long       Huynh Vinh Long                             //
@@ -16,7 +16,6 @@
 
 //constants
 float SELL_PERCENT = 0.8;                 // percent of original price player can get when sell a tower
-int CLICK_TIME = 100;                     // delay time before recheck mouse click when game is paused
 
 color WHITE = color(100, 100, 100, 100);   
 color RED = color(255, 0, 0, 100);
@@ -84,6 +83,9 @@ int oldFrame = 0;                // old frameCount
 int balloonNum = 0;            // number of balloon in a round havebeen created
 int balloonDelay = 25;
 
+int messageTime = 50;
+String message = "this is ok!";
+
 void setup() {
   
   //--------------------setup basic---------------------//
@@ -128,25 +130,22 @@ void setup() {
   Button buttonList [];
   
   //---------create menu screen-----------
-  bg = loadImage("./Pic/map2.jpg");
-  
+  bg = loadImage("./Pic/menu.jpg");
   buttonList = new Button[] {
     new NewGameButton(100, 100, 200, 300)
   };
-  
   menuScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
 
   //---------create menu screen-----------
   bg = loadImage("./Pic/map1.jpg");
-  
   buttonList = new Button[] {
     new NewDartMonkey(0, 0, 100, 100),
     new NewIceTower(0, 100, 100, 200),
     new NewBombTower(0, 200, 100, 300),
     new NewSuperMonkey(0, 300, 100, 400),
   };
-  
   playScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
+  
   
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
@@ -168,7 +167,7 @@ void setup() {
   balloonList = new Balloon [] {
     new GreenBalloon(),
     new BlueBalloon(),
-    new RainbowBalloon(),
+    new YellowBalloon(),
     new RedBalloon(),
   };
   balloonList[0].status = 0;
