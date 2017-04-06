@@ -16,14 +16,12 @@ class Track {
     String tmp [];
     x = new float [data.length];
     y = new float [data.length];
-    println(data.length);
     
     //put data to x[], y[]
     for (int i=0; i<data.length; i++) {
       tmp = split(data[i], " ");
       x[i] = (float) int(tmp[0]);
       y[i] = (float) int(tmp[1]);
-      println(x[i], y[i]);
     }
   }
 }

@@ -38,19 +38,17 @@ class SaveGameButton extends Button {
   }
 
   void action() {
-    String[] data = new String [ 9 + towerList.length];
-    data[0] =str(popCount);
-    data[1] =str(health);
-    data[2] =str(money);
-    data[3] =str(totalBalloonInRound);
-    data[4] =str(createdBalloonInRound);
-    data[5] =str(totalRounds);
-    data[6] =str(currentRound);
-    data[7] =str(difficultyLevel);
-    data[8] =str(oldFrame);
+    String [] data = new String [4 + towerList.length];
+    
+    // 4 first line in file are used to save trackNum, health, money, current round
+    data[0] = str(track.trackNum);
+    data[1] = str(money);
+    data[2] = str(health);
+    data[3] = str(currentRound);
 
+    // following lines save tower list in format 'type x y'. type is determined by towerType function
     for (int i=0; i<towerList.length; i++) {
-      data[i+9] = towerType(towerList[i]) + " " +str(towerList[i].x) + " " +str(towerList[i].y);
+      data[i+4] = towerType(towerList[i]) + " " +str(towerList[i].x) + " " +str(towerList[i].y);
     }
 
     saveStrings("./Data/savedgame.txt", data);
@@ -74,38 +72,50 @@ class LoadGameButton extends Button {
   }
 
   void action() {
-    String[] data = loadStrings("./Data/savedgame.txt");
-    popCount = int (data[0]);
-    health = int (data[1]);
-    money = int (data[2]);
-    totalBalloonInRound = int (data[3]);
-    createdBalloonInRound = int (data[4]);
-    totalRounds = int (data[5]);
-    currentRound = int (data[6]);
-    difficultyLevel = int (data[7]);
-    oldFrame = int (data[8]);
-
-    int j=0;
-    for (int i=0; i<data.length-9; i++) {
-      float x = float(split(data[i], " ")[1]);
-      float y = float(split(data[i], " ")[2]);
-      int type = int(split(data[i], " ")[0]);
+    //read file
+    String data []= loadStrings("./Data/savedgame.txt");
+    
+    //set values from data
+    track        = new Track(int(data[0]));
+    money        = int(data[1]);
+    health       = int(data[2]);
+    currentRound = int(data[3]);
+    
+    //set other values
+    totalBalloonInRound = (int) pow(difficultyLevel, currentRound - 1) * 10;
+    towerList   = new Tower [data.length-4];
+    balloonList = new Balloon [BALLOON_LIST_SIZE];
+    weaponList  = new Weapon [WEAPON_LIST_SIZE];
+    weaponNum  = 0;
+    balloonNum = 0;
+    pausing  = false;
+    starting = false;
+    screen    = playScreen;
+    screen.bg = map[track.trackNum];
+    
+    //create towers
+    int towerNum = 0;
+    for (int i=4; i<data.length; i++) {
+      int type = int(split(data[i], ' ')[0]);
+      float x  = float(split(data[i], ' ')[1]);
+      float y  = float(split(data[i], ' ')[2]);
+      
       switch (type) {
-      case 0:
-        towerList[j] = new DartMonkey(x, y);
-        j++;
-        break;
-      case 1:
-        towerList[j] = new IceTower(x, y);
-        j++;
-        break;
-      case 2:
-        towerList[j] = new BombTower(x, y);
-        j++;
-        break;
-      case 3:
-        towerList[j] = new SuperMonkey(x, y);
-        j++;
+        case 0:
+          towerList[towerNum] = new DartMonkey(x, y);
+          towerNum++;
+          break;
+        case 1:
+          towerList[towerNum] = new IceTower(x, y);
+          towerNum++;
+          break;
+        case 2:
+          towerList[towerNum] = new BombTower(x, y);
+          towerNum++;
+          break;
+        case 3:
+          towerList[towerNum] = new SuperMonkey(x, y);
+          towerNum++;
       }
     }
   }
@@ -125,18 +135,20 @@ class HighScoreButton extends Button {
     highscore = new int [3][5];    
     int k=0;
     for (int i=0; i<3; i++)
-      for (int j=0; j<5; j++) {
-        highscore[i][j] = int(data[k]);
+      for (int towerNum=0; towerNum<5; towerNum++) {
+        highscore[i][towerNum] = int(data[k]);
         k++;
       }
 
-    //update highscore
-    highscore[track.trackNum] = (int []) append(highscore[track.trackNum], currentRound); //add current round to array
-    highscore[track.trackNum] = reverse(sort(highscore[track.trackNum]));                 //sort
-
-    //check if player achieved highscore   
-    if (highscore[track.trackNum][4] <= currentRound) 
-      achievedHighscore = true;   
+    if (track != null) {
+      //update highscore
+      highscore[track.trackNum] = (int []) append(highscore[track.trackNum], currentRound); //add current round to array
+      highscore[track.trackNum] = reverse(sort(highscore[track.trackNum]));                 //sort
+    
+      //check if player achieved highscore   
+      if (highscore[track.trackNum][4] <= currentRound) 
+        achievedHighscore = true;   
+    }
 
     //change screen
     pausing = true;
@@ -162,9 +174,7 @@ class NewDartMonkey extends Button {
     super(x1, y1, x2, y2);
   }
 
-  void action() {
-    println("dart monkey");
-    
+  void action() {   
     //cancel buying
     if (buildingTower instanceof DartMonkey) {
       buildingTower = null;
@@ -174,54 +184,11 @@ class NewDartMonkey extends Button {
     //new tower
     chosenTower = null;
     buildingTower = new DartMonkey(mouseX, mouseY);
-    if (money < buildingTower.price) 
+    if (money < buildingTower.price) {
+      message = "You need $" + str(buildingTower.price - money) + " more to build this tower";
+      messageTime = (int) frameRate * 2;
       buildingTower = null;
-  }
-}
-
-
-class NewBombTower extends Button {
-  NewBombTower (float x1, float y1, float x2, float y2) {
-    super(x1, y1, x2, y2);
-  }
-
-  void action() {
-    println("bomb monkey");
-    
-    //cancel buying
-    if (buildingTower instanceof BombTower) {
-      buildingTower = null;
-      return;
     }
-
-    //new tower
-    chosenTower = null;
-    buildingTower = new BombTower(mouseX, mouseY);
-    if (money < buildingTower.price) 
-      buildingTower = null;
-  }
-}
-
-
-class NewSuperMonkey extends Button {
-  NewSuperMonkey (float x1, float y1, float x2, float y2) {
-    super(x1, y1, x2, y2);
-  }
-
-  void action() {
-    println("s monkey");
-    
-    //cancel buying
-    if (buildingTower instanceof SuperMonkey) {
-      buildingTower = null;
-      return;
-    }
-
-    //new tower
-    chosenTower = null;
-    buildingTower = new SuperMonkey(mouseX, mouseY);
-    if (money < buildingTower.price) 
-      buildingTower = null;
   }
 }
 
@@ -232,8 +199,6 @@ class NewIceTower extends Button {
   }
 
   void action() {
-    println("eis monkey");
-    
     //cancel buying
     if (buildingTower instanceof IceTower) {
       buildingTower = null;
@@ -243,10 +208,62 @@ class NewIceTower extends Button {
     //new tower
     chosenTower = null;
     buildingTower = new IceTower(mouseX, mouseY);
-    if (money < buildingTower.price) 
+    if (money < buildingTower.price) {
+      message = "You need $" + str(buildingTower.price - money) + " more to build this tower";
+      messageTime = (int) frameRate * 2;
       buildingTower = null;
+    }
   }
 }
+
+
+class NewBombTower extends Button {
+  NewBombTower (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+
+  void action() {
+    //cancel buying
+    if (buildingTower instanceof BombTower) {
+      buildingTower = null;
+      return;
+    }
+
+    //new tower
+    chosenTower = null;
+    buildingTower = new BombTower(mouseX, mouseY);
+    if (money < buildingTower.price) {
+      message = "You need $" + str(buildingTower.price - money) + " more to build this tower";
+      messageTime = (int) frameRate * 2;
+      buildingTower = null;
+    }
+  }
+}
+
+
+class NewSuperMonkey extends Button {
+  NewSuperMonkey (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+
+  void action() { 
+    //cancel buying
+    if (buildingTower instanceof SuperMonkey) {
+      buildingTower = null;
+      return;
+    }
+
+    //new tower
+    chosenTower = null;
+    buildingTower = new SuperMonkey(mouseX, mouseY);
+    if (money < buildingTower.price) {
+      message = "You need $" + str(buildingTower.price - money) + " more to build this tower";
+      messageTime = (int) frameRate * 2;
+      buildingTower = null;
+    }
+  }
+}
+
 
 
 class SellButton extends Button {
@@ -269,18 +286,6 @@ class SellButton extends Button {
 
 
 //------------------game control buttons---------------------
-class StartButton extends Button {  
-  StartButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
-  }
-
-  void action() {
-    frameRate(SLOW);                // default play slowly when start
-    starting = true;
-    oldFrame = frameCount;
-  }
-}
-
 
 class FastOrSlowButton extends Button {
   FastOrSlowButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
@@ -288,6 +293,9 @@ class FastOrSlowButton extends Button {
   }
 
   void action() {
+    chosenTower = null;
+    buildingTower = null;
+    
     if (starting) {
       if (frameRate == FAST) {
         frameRate(SLOW);
@@ -298,6 +306,7 @@ class FastOrSlowButton extends Button {
       frameRate(SLOW);                // default play slowly when start
       starting = true;
       oldFrame = frameCount;
+      screen.buttonList[1].enable = false;
     }
   }
 }
@@ -309,6 +318,8 @@ class MenuButton extends Button {
   }
 
   void action() {
+    chosenTower = null;
+    buildingTower = null;
     pausing = true;
     screen = menuScreen;
   }
@@ -336,6 +347,7 @@ class ChooseTrackButton extends Button {
     //initialize values
     balloonList = new Balloon [BALLOON_LIST_SIZE];
     weaponList  = new Weapon [WEAPON_LIST_SIZE];
+    towerList   = new Tower [0];
     
     totalBalloonInRound = 10;
     createdBalloonInRound = 0;

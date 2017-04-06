@@ -112,7 +112,7 @@ void drawBalloons() {
       continue;
 
     //---draw balloon----------
-    image(balloonList[i].img, track.x[balloonList[i].position], track.y[balloonList[i].position], 50, 50); 
+    image(balloonList[i].img, track.x[balloonList[i].position], track.y[balloonList[i].position]); 
 
     //---freeze balloon--------
     if (balloonList[i].freeze > 0) {
@@ -138,7 +138,7 @@ void drawWeapons() {
     if (weaponList[i].status==0) {
       weaponList[i].x += weaponList[i].speedX;
       weaponList[i].y += weaponList[i].speedY;
-      image(weaponList[i].img, weaponList[i].x, weaponList[i].y, 20, 20);
+      image(weaponList[i].img, weaponList[i].x, weaponList[i].y);
       weaponList[i].pop();
     }
   }
@@ -147,7 +147,6 @@ void drawWeapons() {
 
 //------------------check if player has finished this round---------------------
 void checkFinishRound () {
-  println(createdBalloonInRound,totalBalloonInRound, popCount);
   if ( createdBalloonInRound == totalBalloonInRound && popCount == createdBalloonInRound ) {  
     totalBalloonInRound = (int)(totalBalloonInRound * difficultyLevel);     // increase level of difficulty after each round
     currentRound++;                                                   // increase round
@@ -157,7 +156,8 @@ void checkFinishRound () {
     weaponList  = new Weapon [WEAPON_LIST_SIZE];                                    // reset weaponList
     starting = false;
     balloonNum = 0;
-    weaponNum = 0;
+    weaponNum  = 0;
+    screen.buttonList[1].enable = true;
   }
 }
 
@@ -169,7 +169,7 @@ void drawTower() {
   for (int i=0; i<towerList.length; i++) {
     if (towerList[i] == chosenTower)
       ellipse(towerList[i].x, towerList[i].y, towerList[i].shootRadius*2, towerList[i].shootRadius*2);
-    image(towerList[i].img, towerList[i].x, towerList[i].y, 50, 50);
+    image(towerList[i].img, towerList[i].x, towerList[i].y);
   }
 
   //------shoot------
@@ -187,7 +187,6 @@ void drawMouse() {
   for (int i=0; i<screen.buttonList.length; i++) {
     b = screen.buttonList[i]; 
     if (b.containPoint(mouseX, mouseY) && b.enable) {
-      println("in button", frameCount);
       rect(b.x1, b.y1, b.x2, b.y2);
       return;
     }
@@ -219,7 +218,7 @@ void drawMouse() {
     if (buildingTowerConflict)
       fill(RED);
     else 
-    fill(WHITE);
+      fill(WHITE);
 
     //draw tower
     ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);
@@ -240,6 +239,12 @@ void showInfo() {
     text(health, 725, 45);
     text("Round " + str(currentRound), 700, 70);
 
+    //print message
+    if (messageTime != 0) {
+      text(message,100, 480);
+      messageTime--;
+    }
+
     //draw sell button
     if (chosenTower != null) {
       screen.buttonList[0].enable = true;
@@ -252,17 +257,16 @@ void showInfo() {
   
   //---------in highscore screen-------------
   if (screen == highScoreScreen) {
-    textMode(CENTER);
-    fill(0, 255, 0);
+    fill(255, 0, 0);
     textFont(fontMedium);
-    text("Track 1", width/6, height/3+30);
-    text("Track 2", width/2, height/3+30);
-    text("Track 3", width*5/6, height/3+30);
+    text("Track 1", width/6-50, 235);
+    text("Track 2", width/2-50, 235);
+    text("Track 3", width*5/6-50, 235);
 
     float xScore0 = width/6;
     float xScore1 = width/2;
     float xScore2 = width*5/6;
-    float yScore = height/3+30;
+    float yScore = height/3 + 100;
 
     fill(250, 255, 0);
     textFont(fontSmall);
@@ -274,9 +278,9 @@ void showInfo() {
     }
 
     if (achievedHighscore) {
-      fill(250, 255, 0);
-      textFont(fontLarge);
-      text("Congratulation! You've achieved highscore <3<3", width/2, height*4/5);
+      fill(0, 255, 0);
+      textFont(fontMedium);
+      text("Congratulation! You've achieved highscore <3<3", 50, height*4/5+50);
     }
   }
 }

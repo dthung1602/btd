@@ -84,7 +84,7 @@ int money = 0;
 int totalBalloonInRound = 0;       // total health of balloons in current round
 int createdBalloonInRound = 0;      // total health of created balloons in current round
 int totalRounds = 30;            // total rounds of a map
-int currentRound = 1;      
+int currentRound = 0;      
 float difficultyLevel = 1.3;     // level of difficulty
 int oldFrame = 0;                // old frameCount
 int balloonNum = 0;            // number of balloon in a round havebeen created
@@ -93,6 +93,9 @@ int newBalloonDelay = 25;
 
 int highscore [][];
 boolean achievedHighscore;
+
+String message;
+int messageTime = 0;
 
 void setup() {
   
@@ -148,7 +151,7 @@ void setup() {
   
   buttonList = new Button[] {
     new NewGameButton(15, 440, 250, 480), 
-    //new QuitButton(200, 100, 300, 300),
+    new QuitButton(730, 10, 790, 70),
     new LoadGameButton(280, 440, 515, 480),
     new HighScoreButton(555, 440, 785, 480),
   };
@@ -157,14 +160,14 @@ void setup() {
 
   //--------create game screen-------------  
   buttonList = new Button[] {
-    new SellButton(700, 0, 200, 100),
+    new SellButton(720, 310, 780, 370),
+    new SaveGameButton(700, 390, 795, 415),
+    new MenuButton(700, 425, 730, 450),
+    new FastOrSlowButton(705, 460, 800, 520),
     new NewDartMonkey(705, 80, 750, 120), 
     new NewBombTower(705, 130, 750, 170),
     new NewIceTower(755, 80, 800, 120),
-    new NewSuperMonkey(755, 130, 800, 170), 
-    new MenuButton(700, 425, 730, 450),
-    new SaveGameButton(700, 390, 795, 415),
-    new FastOrSlowButton(705, 460, 800, 520)
+    new NewSuperMonkey(755, 130, 800, 170)    
   };
   
   playScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
@@ -203,7 +206,7 @@ void setup() {
   bg = loadImage("./Pic/highscore.jpg");
   
   buttonList = new Button[] {
-    new MenuButton(100, 0, 200, 100)
+    new MenuButton(750, 475, 790, 512)
   };
   
   highScoreScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
