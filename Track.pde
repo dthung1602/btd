@@ -1,9 +1,10 @@
 class Track {
-  PImage bg;
+  int trackNum;  
   int trackWidth;
   int defaultHealth;
   int defaultMoney;
-    
+  PImage bg;
+  
   //x,y hold posible balloon positions on the screen
   float x[];
   float y[];

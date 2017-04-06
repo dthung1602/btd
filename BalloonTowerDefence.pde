@@ -19,6 +19,7 @@ float SELL_PERCENT = 0.8;                 // percent of original price player ca
 
 color WHITE = color(100, 100, 100, 100);   
 color RED = color(255, 0, 0, 100);
+color BLUE = color(0, 150, 250, 100);
 
 float W;                                  // = width/2
 float H;                                  // = height/2
@@ -26,6 +27,8 @@ float H;                                  // = height/2
 int FAST = 50;                            // frame rate 
 int SLOW = 25;                            // frame rate
 
+int BALLOON_LIST_SIZE = 500;
+int WEAPON_LIST_SIZE = 1500;
 
 //constant objects, initialized in setup
 Screen menuScreen;
@@ -33,6 +36,7 @@ Screen playScreen;
 Screen winScreen;
 Screen loseScreen;
 Screen highScoreScreen;
+
 
 PImage sellButtonPic;
 
@@ -61,7 +65,7 @@ PFont fontLarge;
 Screen screen;
 Track track;
 
-boolean starting = true;                  // true: player start a round;    false: round if finished
+boolean starting = false;                  // true: player start a round;    false: round if finished
 boolean pausing = true;                   // true: menu;  false: in game
 
 Balloon balloonList [] = {};              
@@ -76,17 +80,15 @@ int popCount = 0;                     // count number of popped balloons in curr
 int health = 0;
 int money = 0;
 
-int totalRoundHealth = 50;       // total health of balloons in current round
-int createdRoundHealth = 0;      // total health of created balloons in current round
+int totalBalloonInRound = 0;       // total health of balloons in current round
+int createdBalloonInRound = 0;      // total health of created balloons in current round
 int totalRounds = 30;            // total rounds of a map
 int currentRound = 1;      
-float difficultyLevel = 1.5;     // level of difficulty
+float difficultyLevel = 1.3;     // level of difficulty
 int oldFrame = 0;                // old frameCount
 int balloonNum = 0;            // number of balloon in a round havebeen created
-int balloonDelay = 25;
-
-int messageTime = 50;
-String message = "this is ok!";
+int weaponNum = 0;
+int newBalloonDelay = 25;
 
 void setup() {
   
@@ -118,8 +120,8 @@ void setup() {
   
   //weapons' images
   dartPic  = loadImage("./Pic/dart.png");
-  bombPic  = loadImage("./Pic/dart.png");
-  laserPic = loadImage("./Pic/dart.png");
+  bombPic  = loadImage("./Pic/bomb.png");
+  laserPic = loadImage("./Pic/laser.png");
   
   sellButtonPic     = loadImage("./Pic/sell_button.png");
   
@@ -136,7 +138,7 @@ void setup() {
   //---------create menu screen-----------
   bg = loadImage("./Pic/menu.jpg");
   buttonList = new Button[] {
-    new NewGameButton(100, 100, 200, 300)
+    new NewGameButton(10, 440, 250, 490)
   };
   menuScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
 
@@ -148,6 +150,7 @@ void setup() {
     new NewIceTower(0, 100, 100, 200),
     new NewBombTower(0, 200, 100, 300),
     new NewSuperMonkey(0, 300, 100, 400),
+    new StartButton(700, 450, 800, 520)
   };
   playScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
   
@@ -166,16 +169,18 @@ void setup() {
   track.x = new float [string_list.length];
   track.y = new float [string_list.length];
   for (int i=0; i<string_list.length; i++) {
-    track.x[i] = toInt(split(string_list[i], " ")[0]);
-    track.y[i] = toInt(split(string_list[i], " ")[1]);
+    track.x[i] = int(split(string_list[i], " ")[0]);
+    track.y[i] = int(split(string_list[i], " ")[1]);
   }
-  balloonList = new Balloon [] {
+  balloonList = new Balloon [BALLOON_LIST_SIZE];
+  weaponList  = new Weapon [WEAPON_LIST_SIZE];
+  totalBalloonInRound = 10;
+  /*{
     new GreenBalloon(),
     new BlueBalloon(),
     new YellowBalloon(),
     new RedBalloon(),
-  };
-  balloonList[0].status = 0;
-  health = 100;
+  };*/
+  health = 2;
   money = 500;
 }

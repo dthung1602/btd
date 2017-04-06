@@ -16,14 +16,18 @@ abstract class Weapon {
   }
   
   void pop() {
-    for (int i = 0; i<balloonList.length; i++) {
+    for (int i = 0; i<balloonNum; i++) {
       if (balloonList[i].status == 1)
         continue;
       if (touch(this, balloonList[i])) {  //check if weapon touch balloon
         balloonList[i].health -= damage;
-        if (balloonList[i].health <= 0)   //check balloon health    
-          balloonList[i].status = 1; 
+        if (balloonList[i].health <= 0) {   //check balloon health    
+          balloonList[i].status = 1;
+          popCount++;
+          money += balloonList[i].moneyBonus;
+        }
         status = 1;
+        return;
       }
     }
   }
@@ -46,23 +50,26 @@ class Bomb extends Weapon{
   Bomb (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
     super(tmp_x, tmp_y, tmp_speedX, tmp_speedY);
     damage = 2;
-    popRadius = 2;
+    popRadius = 40;
     img = bombPic;
-    explodeRadius = 20;
+    explodeRadius = 40;
   }
   
   void pop() {
-    for (int i = 0; i<balloonList.length; i++) {
-      if (touch(this, balloonList[i])  && balloonList[i].status == 0) {
+    for (int i = 0; i<balloonNum; i++) {
+      if (balloonList[i].status == 0 && touch(this, balloonList[i])) {
         status = 1;
         //--------------explode---------------------
-        for (int j = 0; j<balloonList.length; j++) {
-          if (balloonList[i].status == 1)
+        for (int j = 0; j<balloonNum; j++) {
+          if (balloonList[j].status == 1)
             continue;
           if (touchEx(this, balloonList[j])) 
             balloonList[j].health -= damage;
-          if (balloonList[j].health <= 0) 
+          if (balloonList[j].health <= 0) {
             balloonList[j].status = 1;
+            popCount++;
+            money += balloonList[j].moneyBonus;
+          }
         }
       }
     }
@@ -75,7 +82,7 @@ class Laser extends Weapon{
   Laser (float tmp_x, float tmp_y, float tmp_speedX, float tmp_speedY) {
     super(tmp_x, tmp_y, tmp_speedX, tmp_speedY);
     damage = 3;
-    popRadius = 2;
+    popRadius = 40;
     img = laserPic;
   }
 }

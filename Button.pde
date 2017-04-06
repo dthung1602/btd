@@ -33,7 +33,7 @@ class NewGameButton extends Button {
     fill(255,255,0,100);
     //real action 
     pausing = false;
-    starting = true;
+    oldFrame = frameCount;
   }
 }
 
@@ -195,8 +195,9 @@ class StartButton extends Button {
   }
   
   void action() {
-    frameRate(SLOW);             // default play slowly when start
+    frameRate(SLOW);                                                  // default play slowly when start
     starting = true;
+    oldFrame = frameCount;    
   } 
 }
 

@@ -15,8 +15,7 @@ abstract class Tower {
     price = tmp_price;
   }
 
-  void shoot() {
-  }
+  void shoot() {}
 }
 
 
@@ -31,7 +30,7 @@ class DartMonkey extends Tower {
     int max = -1;  // save the pos the first balloon in shootRadius
 
     //Check all the balloons in balloonList and find the balloon with the highest position
-    for (int i=0; i < balloonList.length; i++) {
+    for (int i=0; i < balloonNum; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
@@ -54,7 +53,8 @@ class DartMonkey extends Tower {
 
       //create new weapon
       Dart wp = new Dart( x, y, xSpeed, ySpeed);
-      weaponList =  (Weapon[]) append(weaponList, wp);
+      weaponList[weaponNum] = wp;
+      weaponNum++;
     }
   }
 }
@@ -69,7 +69,7 @@ class IceTower extends Tower {
   }
 
   void shoot() {
-    for (int i=0; i < balloonList.length; i++) {
+    for (int i=0; i < balloonNum; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
@@ -92,7 +92,7 @@ class BombTower extends Tower {
     int max = -1;  // save the pos the first balloon in shootRadius
 
     //Check all the balloons in balloonList and find the balloon with the highest position
-    for (int i=0; i < balloonList.length; i++) {
+    for (int i=0; i < balloonNum; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
@@ -114,8 +114,9 @@ class BombTower extends Tower {
       float ySpeed = (track.y[max] - y) * speed / d;
 
       //create new weapon
-      Dart wp = new Dart( x, y, xSpeed, ySpeed);
-      weaponList =  (Weapon[]) append(weaponList, wp);
+      Bomb wp = new Bomb( x, y, xSpeed, ySpeed);
+      weaponList[weaponNum] = wp;
+      weaponNum++;
     }
   }
 }
@@ -132,7 +133,7 @@ class SuperMonkey extends Tower {
     int max = -1;  // save the pos the first balloon in shootRadius
 
     //Check all the balloons in balloonList and find the balloon with the highest position
-    for (int i=0; i < balloonList.length; i++) {
+    for (int i=0; i < balloonNum; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
@@ -154,8 +155,9 @@ class SuperMonkey extends Tower {
       float ySpeed = (track.y[max] - y) * speed / d;
 
       //create new weapon
-      Dart wp = new Dart( x, y, xSpeed, ySpeed);
-      weaponList =  (Weapon[]) append(weaponList, wp);
+      Laser wp = new Laser( x, y, xSpeed, ySpeed);
+      weaponList[weaponNum] = wp;
+      weaponNum++;
     }
   }
 }
