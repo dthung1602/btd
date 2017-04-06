@@ -2,7 +2,7 @@ abstract class Button {
   float x1, y1;
   float x2, y2;
   boolean enable = true;
-  
+
   Button(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
     x1 = tmp_x1;
     y1 = tmp_y1;
@@ -27,20 +27,13 @@ class NewGameButton extends Button {
   }
   
   void action() {  
-    // just example
-    println("NEW game!");
-    screen = playScreen;
-    fill(255,255,0,100);
-    //real action 
-    pausing = false;
-    oldFrame = frameCount;
+    screen = choosingTrackScreen;
   }
 }
 
-/*Vlong's job
-*/
+/* Vlong's job */
+
 class SaveGameButton extends Button {
-  //>>> save current game to file
   SaveGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
     super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
   }
@@ -52,7 +45,6 @@ class SaveGameButton extends Button {
 
 
 class LoadGameButton extends Button {
-  //>>> load game from file 
   LoadGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
     super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
   }
@@ -73,6 +65,7 @@ class HighScoreButton extends Button {
   }
 }
 
+
 class QuitButton extends Button {
   QuitButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
     super(tmp_x1,tmp_y1, tmp_x2, tmp_y2);
@@ -82,7 +75,6 @@ class QuitButton extends Button {
     exit();
   }
 }
-  //>>> use exit function 
 
 
 //--------------create & sell towers-----------------
@@ -169,6 +161,7 @@ class NewIceTower extends Button {
   }
 }
 
+
 class SellButton extends Button {
   SellButton (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
@@ -195,39 +188,94 @@ class StartButton extends Button {
   }
   
   void action() {
-    frameRate(SLOW);                                                  // default play slowly when start
+    frameRate(SLOW);                // default play slowly when start
     starting = true;
     oldFrame = frameCount;    
   } 
 }
 
 
-class FastForwardButton extends Button {
-  //>>> increase frame rate to 50
-  FastForwardButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+class FastOrSlowButton extends Button {
+  FastOrSlowButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
     super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
   }
 
   void action() {
-   frameRate(FAST); 
+    if (starting) {
+      if (frameRate == FAST) {
+        frameRate(SLOW);
+      } else {
+        frameRate(FAST);
+      }
+    } else {
+      frameRate(SLOW);                // default play slowly when start
+      starting = true;
+      oldFrame = frameCount;
+    }
   }
 }
 
 
-class SlowDownButton extends Button {
-  //>>> reduce frame rate to 25
-  SlowDownButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
+class MenuButton extends Button {  
+  MenuButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action() {
+    pausing = true;
+    screen = menuScreen;
+  }
+}
+
+
+//------------Choosing track Button-------------
+
+class Track1Button extends Button {
+  Track1Button(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
     super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
   }
   
   void action(){
-    frameRate(SLOW);
+    screen = playScreen;
+    pausing = false;
+    starting = false;
+    //load track from file
   }
 }
 
 
+class Track2Button extends Button {
+  Track2Button(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    screen = playScreen;
+    pausing = false;
+    starting = false;
+    //load track from file
+  }
+}
+
+
+class Track3Button extends Button {
+  Track3Button(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
+    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  }
+  
+  void action(){
+    screen = playScreen;
+    pausing = false;
+    starting = false;
+    //load track from file
+  }
+}
+
+
+
+
+/*------------------------ temporary disable-------------------------------
 class ResumeButton extends Button {
-  //>> pausing = false
   ResumeButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
     super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
   }
@@ -250,28 +298,6 @@ class PauseButton extends Button {
 }
 
 
-class MenuButton extends Button {  
-  MenuButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
-  }
-  
-  void action() {
-    pausing = true;
-    screen = menuScreen;
-    fill(WHITE);
-    background(screen.bg);
-    rect(100,100,200,300);
-    rect(200,100,300,300);
-    fill(0,255,255,100);
-  }
-}
-
-
-/*class PlayAgainButton extends Button {}
- when lose only
- reset health, towerList, ...
- starting = false
-*/
 class PlayAgainButton extends Button {
   PlayAgainButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2); 
@@ -280,12 +306,13 @@ class PlayAgainButton extends Button {
   void action() {
     pausing = false;
     screen = playScreen;
-    
     //reset health, towerlist, weaponlist
     towerList = new Tower[0];
     weaponList = new Weapon[0];
     health = track.defaultHealth;
     money = track.defaultMoney;
-    currentRound = 1;
+    track.round = 1;
   }
 }
+
+*/

@@ -36,7 +36,7 @@ Screen playScreen;
 Screen winScreen;
 Screen loseScreen;
 Screen highScoreScreen;
-
+Screen choosingTrackScreen;
 
 PImage sellButtonPic;
 
@@ -137,30 +137,72 @@ void setup() {
   
   //---------create menu screen-----------
   bg = loadImage("./Pic/menu.jpg");
+  
   buttonList = new Button[] {
-    new NewGameButton(10, 440, 250, 490)
+    new NewGameButton(15, 440, 250, 480), 
+    //new QuitButton(200, 100, 300, 300),
+    new LoadGameButton(280, 440, 515, 480),
+    new HighScoreButton(555, 440, 785, 480),
   };
+  
   menuScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
 
-  //---------create menu screen-----------
-  bg = loadImage("./Pic/map1.jpg");
+  //--------create game screen-------------  
   buttonList = new Button[] {
-    new SellButton(720, 310, 780, 370),
-    new NewDartMonkey(0, 0, 100, 100),
-    new NewIceTower(0, 100, 100, 200),
-    new NewBombTower(0, 200, 100, 300),
-    new NewSuperMonkey(0, 300, 100, 400),
-    new StartButton(700, 450, 800, 520)
+    new NewDartMonkey(705, 80, 750, 120), 
+    new NewBombTower(705, 130, 750, 170),
+    new NewIceTower(755, 80, 800, 120),
+    new NewSuperMonkey(755, 130, 800, 170), 
+    new SellButton(700, 0, 200, 100),
+    new MenuButton(700, 425, 730, 450),
+    new SaveGameButton(700, 390, 795, 415),
+    new FastOrSlowButton(705, 460, 800, 520)
   };
-  playScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
+  
+  playScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
+   
+  //--------create choosing track screen------------
+  bg = loadImage("./Pic/tracks.jpg");
+  
+  buttonList = new Button[] {
+    new Track1Button(85, 135, 285, 275),
+    new Track2Button(290, 125, 495, 285),
+    new Track3Button(500, 140, 710, 290),
+    new MenuButton(655, 55, 695, 110)
+  };
+  
+  choosingTrackScreen = new Screen(bg, buttonList, color(255, 100, 100));
+  
+  //---------create win screen-------------
+  bg = loadImage("./Pic/win.jpg");
+  
+  buttonList = new Button[] {
+    new MenuButton(415, 310, 495, 370)
+  };
+  
+  winScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
+  
+  //-----------create lose screen-------------
+  bg = loadImage("./Pic/lose.jpg");
+  
+  buttonList = new Button[] {
+    new MenuButton(580, 215, 655, 280),
+  };
+  
+  loseScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
+  
+  //-----------create high score screen-------------  
+  bg = loadImage("./Pic/highscore.jpg");
+  
+  buttonList = new Button[] {
+    new MenuButton(100, 0, 200, 100)
+  };
+  
+  highScoreScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
   
   
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
-  fill(WHITE);
-  background(screen.bg);
-  rect(100,100,200,300);
-  fill(0,255,255,100);
 
 
   //--------------------------------tmp--------------------------------//
@@ -175,12 +217,6 @@ void setup() {
   balloonList = new Balloon [BALLOON_LIST_SIZE];
   weaponList  = new Weapon [WEAPON_LIST_SIZE];
   totalBalloonInRound = 10;
-  /*{
-    new GreenBalloon(),
-    new BlueBalloon(),
-    new YellowBalloon(),
-    new RedBalloon(),
-  };*/
   health = 2;
   money = 500;
 }
