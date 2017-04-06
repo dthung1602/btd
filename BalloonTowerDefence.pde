@@ -56,10 +56,11 @@ PImage dartPic;
 PImage bombPic;
 PImage laserPic;
 
+PImage map[] = new PImage [3];
+
 PFont fontSmall;
 PFont fontMedium;
 PFont fontLarge;
-
 
 //changeable objects
 Screen screen;
@@ -89,6 +90,9 @@ int oldFrame = 0;                // old frameCount
 int balloonNum = 0;            // number of balloon in a round havebeen created
 int weaponNum = 0;
 int newBalloonDelay = 25;
+
+int highscore [][];
+boolean achievedHighscore;
 
 void setup() {
   
@@ -123,7 +127,11 @@ void setup() {
   bombPic  = loadImage("./Pic/bomb.png");
   laserPic = loadImage("./Pic/laser.png");
   
-  sellButtonPic     = loadImage("./Pic/sell_button.png");
+  //backgrounds' images
+  for (int i=0; i<3; i++)
+    map[i] = loadImage("./Pic/map" + str(i) + ".jpg");
+  
+  sellButtonPic = loadImage("./Pic/sell_button.png");
   
   //-----------------------load fonts------------------------//
   fontSmall  = loadFont("./Font/font_small.vlw");
@@ -149,11 +157,11 @@ void setup() {
 
   //--------create game screen-------------  
   buttonList = new Button[] {
+    new SellButton(700, 0, 200, 100),
     new NewDartMonkey(705, 80, 750, 120), 
     new NewBombTower(705, 130, 750, 170),
     new NewIceTower(755, 80, 800, 120),
     new NewSuperMonkey(755, 130, 800, 170), 
-    new SellButton(700, 0, 200, 100),
     new MenuButton(700, 425, 730, 450),
     new SaveGameButton(700, 390, 795, 415),
     new FastOrSlowButton(705, 460, 800, 520)
@@ -165,9 +173,9 @@ void setup() {
   bg = loadImage("./Pic/tracks.jpg");
   
   buttonList = new Button[] {
-    new Track1Button(85, 135, 285, 275),
-    new Track2Button(290, 125, 495, 285),
-    new Track3Button(500, 140, 710, 290),
+    new ChooseTrackButton(85, 135, 285, 275, 0),
+    new ChooseTrackButton(290, 125, 495, 285, 1),
+    new ChooseTrackButton(500, 140, 710, 290, 2),
     new MenuButton(655, 55, 695, 110)
   };
   
@@ -203,10 +211,10 @@ void setup() {
   
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
-
+  pausing = true;
 
   //--------------------------------tmp--------------------------------//
-  track = new Track("test");
+  /*track = new Track("test");
   String string_list [] = loadStrings("./Data/data");
   track.x = new float [string_list.length];
   track.y = new float [string_list.length];
@@ -218,5 +226,5 @@ void setup() {
   weaponList  = new Weapon [WEAPON_LIST_SIZE];
   totalBalloonInRound = 10;
   health = 2;
-  money = 500;
+  money = 500;*/
 }

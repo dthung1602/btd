@@ -1,10 +1,9 @@
 void draw() {
   background(screen.bg);
-
-  checkGameEnd();
-
+  
   //only draw towers, balloons, ... when not pausing
   if (!pausing) {
+    //checkGameEnd();
     
     //only draw balloons and weapons when player have not finish round
     if (starting) {
@@ -188,6 +187,7 @@ void drawMouse() {
   for (int i=0; i<screen.buttonList.length; i++) {
     b = screen.buttonList[i]; 
     if (b.containPoint(mouseX, mouseY) && b.enable) {
+      println("in button", frameCount);
       rect(b.x1, b.y1, b.x2, b.y2);
       return;
     }
@@ -230,6 +230,7 @@ void drawMouse() {
 
 //--------------print health, money, messages on screen-------------//
 void showInfo() {
+  //---- in play screen------------
   if (screen == playScreen) {
     textFont(fontSmall);
     fill(255, 0, 0);
@@ -249,7 +250,33 @@ void showInfo() {
     return;
   }
   
+  //---------in highscore screen-------------
   if (screen == highScoreScreen) {
-    // Thang
+    textMode(CENTER);
+    fill(0, 255, 0);
+    textFont(fontMedium);
+    text("Track 1", width/6, height/3+30);
+    text("Track 2", width/2, height/3+30);
+    text("Track 3", width*5/6, height/3+30);
+
+    float xScore0 = width/6;
+    float xScore1 = width/2;
+    float xScore2 = width*5/6;
+    float yScore = height/3+30;
+
+    fill(250, 255, 0);
+    textFont(fontSmall);
+    for (int i = 0; i < 5; i++) {
+      text(highscore[0][i], xScore0, yScore);
+      text(highscore[1][i], xScore1, yScore);
+      text(highscore[2][i], xScore2, yScore);
+      yScore = yScore + 30;
+    }
+
+    if (achievedHighscore) {
+      fill(250, 255, 0);
+      textFont(fontLarge);
+      text("Congratulation! You've achieved highscore <3<3", width/2, height*4/5);
+    }
   }
 }
