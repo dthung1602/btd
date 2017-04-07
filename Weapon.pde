@@ -52,7 +52,7 @@ class Bomb extends Weapon{
     damage = 2;
     popRadius = 40;
     img = bombPic;
-    explodeRadius = 40;
+    explodeRadius = 80;
   }
   
   void pop() {
