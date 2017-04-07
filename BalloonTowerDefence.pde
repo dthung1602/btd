@@ -16,21 +16,21 @@
 
 //constants
 float SELL_PERCENT = 0.8;                 // percent of original price player can get when sell a tower
+int   TOTAL_ROUNDS = 30;                  // total rounds of a map
+float DIFFICULTY   = 1.3;                 // determine how fast total number of balloon in one round increase  
 
 color WHITE = color(100, 100, 100, 100);   
-color RED = color(255, 0, 0, 100);
-color BLUE = color(0, 150, 250, 100);
-
-float W;                                  // = width/2
-float H;                                  // = height/2
+color RED   = color(255, 0, 0, 100);
+color BLUE  = color(0, 150, 250, 100);
 
 int FAST = 50;                            // frame rate 
 int SLOW = 25;                            // frame rate
 
 int BALLOON_LIST_SIZE = 500;
-int WEAPON_LIST_SIZE = 1500;
+int WEAPON_LIST_SIZE  = 1500;
 
-//constant objects, initialized in setup
+
+//---------constant objects, initialized in setup-------------------
 Screen menuScreen;
 Screen playScreen;
 Screen winScreen;
@@ -62,40 +62,41 @@ PFont fontSmall;
 PFont fontMedium;
 PFont fontLarge;
 
-//changeable objects
+
+//----------------changeable objects-------------------
 Screen screen;
 Track track;
 
 boolean starting = false;                  // true: player start a round;    false: round if finished
-boolean pausing = true;                   // true: menu;  false: in game
+boolean pausing = true;                    // true: menu;                    false: in game
 
 Balloon balloonList [] = {};              
-Weapon weaponList [] = {};
-Tower towerList [] = {};
+Weapon weaponList []   = {};
+Tower towerList []     = {};
 
-Tower chosenTower = null;                 // the tower that currently being selected
-Tower buildingTower = null;               // the tower to-be-built
-boolean buildingTowerConflict = false;    // true if buildingTower too close to balloon path or to other towers
+Tower chosenTower   = null;                // the tower that currently being selected
+Tower buildingTower = null;                // the tower to-be-built
+boolean buildingTowerConflict = false;     // true if buildingTower is too close to balloon path or too close other towers
 
-int popCount = 0;                     // count number of popped balloons in current round
 int health = 0;
-int money = 0;
+int money  = 0;
 
-int totalBalloonInRound = 0;       // total health of balloons in current round
-int createdBalloonInRound = 0;      // total health of created balloons in current round
-int totalRounds = 30;            // total rounds of a map
-int currentRound = 0;      
-float difficultyLevel = 1.3;     // level of difficulty
-int oldFrame = 0;                // old frameCount
-int balloonNum = 0;            // number of balloon in a round havebeen created
-int weaponNum = 0;
-int newBalloonDelay = 25;
+int currentRound          = 0;
+int totalBalloonInRound   = 0;             // total number of balloons in current round
+int createdBalloonInRound = 0;             // number of created balloons in current round
+int popCount              = 0;             // count number of popped balloons in current round
+int weaponNum = 0;                         // number of weapon created in current round
 
-int highscore [][];
-boolean achievedHighscore;
+int oldFrame        = 0;                   // save frame since the last time a balloon was created
+int newBalloonDelay = 25;                  // delay time between creation of two balloons; will receive random values in game
 
-String message;
-int messageTime = 0;
+int highscore [][];                        // save highscores for each track
+boolean achievedHighscore = false;
+
+String message;                            // save a message to display on screen when playing 
+int messageTime = 0;                       // how long the message will stay on screen
+
+
 
 void setup() {
   
@@ -104,8 +105,6 @@ void setup() {
   //background(loadImage("./Pic/loading.png"));
   rectMode(CORNERS);
   imageMode(CENTER);
-  W = width/2;
-  H = height/2;
   noStroke();
   frameRate(SLOW);
   
@@ -136,6 +135,7 @@ void setup() {
   
   sellButtonPic = loadImage("./Pic/sell_button.png");
   
+  
   //-----------------------load fonts------------------------//
   fontSmall  = loadFont("./Font/font_small.vlw");
   fontMedium = loadFont("./Font/font_medium.vlw");
@@ -148,15 +148,13 @@ void setup() {
   
   //---------create menu screen-----------
   bg = loadImage("./Pic/menu.jpg");
-  
   buttonList = new Button[] {
     new NewGameButton(15, 440, 250, 480), 
     new QuitButton(730, 10, 790, 70),
     new LoadGameButton(280, 440, 515, 480),
     new HighScoreButton(555, 440, 785, 480),
   };
-  
-  menuScreen = new Screen(bg, buttonList, color(255, 0, 0, 100));
+  menuScreen = new Screen(bg, buttonList);
 
   //--------create game screen-------------  
   buttonList = new Button[] {
@@ -169,65 +167,41 @@ void setup() {
     new NewIceTower(755, 80, 800, 120),
     new NewSuperMonkey(755, 130, 800, 170)    
   };
-  
-  playScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
+  playScreen = new Screen(bg, buttonList);
    
   //--------create choosing track screen------------
   bg = loadImage("./Pic/tracks.jpg");
-  
   buttonList = new Button[] {
     new ChooseTrackButton(85, 135, 285, 275, 0),
     new ChooseTrackButton(290, 125, 495, 285, 1),
     new ChooseTrackButton(500, 140, 710, 290, 2),
     new MenuButton(655, 55, 695, 110)
   };
-  
-  choosingTrackScreen = new Screen(bg, buttonList, color(255, 100, 100));
+  choosingTrackScreen = new Screen(bg, buttonList);
   
   //---------create win screen-------------
   bg = loadImage("./Pic/win.jpg");
-  
   buttonList = new Button[] {
     new MenuButton(415, 310, 495, 370)
   };
-  
-  winScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
+  winScreen = new Screen(bg, buttonList);
   
   //-----------create lose screen-------------
   bg = loadImage("./Pic/lose.jpg");
-  
   buttonList = new Button[] {
     new MenuButton(580, 215, 655, 280),
   };
-  
-  loseScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
+  loseScreen = new Screen(bg, buttonList);
   
   //-----------create high score screen-------------  
   bg = loadImage("./Pic/highscore.jpg");
-  
   buttonList = new Button[] {
     new MenuButton(750, 475, 790, 512)
   };
+  highScoreScreen = new Screen(bg, buttonList);
   
-  highScoreScreen = new Screen(bg, buttonList, color(0, 0, 255, 100));
-  
-  
+
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
   pausing = true;
-
-  //--------------------------------tmp--------------------------------//
-  /*track = new Track("test");
-  String string_list [] = loadStrings("./Data/data");
-  track.x = new float [string_list.length];
-  track.y = new float [string_list.length];
-  for (int i=0; i<string_list.length; i++) {
-    track.x[i] = int(split(string_list[i], " ")[0]);
-    track.y[i] = int(split(string_list[i], " ")[1]);
-  }
-  balloonList = new Balloon [BALLOON_LIST_SIZE];
-  weaponList  = new Weapon [WEAPON_LIST_SIZE];
-  totalBalloonInRound = 10;
-  health = 2;
-  money = 500;*/
 }

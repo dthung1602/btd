@@ -1,25 +1,27 @@
 abstract class Tower {
-  float x, y;
-  float shootRadius;
-  float buildRadius;
+  float x, y;                  // coordinates of tower
+  float shootRadius;           // how far tower can shoot
+  float buildRadius;           // how much space tower takes
   PImage img;
   int price;
-  int speed;
+  int speed;                   // how fast the weapon of this tower travel
   float delay ;                // delay time between shots
-  Tower (float tmp_x, float tmp_y, float tmp_shootRadius, float tmp_buildRadius, PImage tmp_image, int tmp_price) {
-    x = tmp_x;
-    y = tmp_y;
-    shootRadius = tmp_shootRadius;
-    buildRadius = tmp_buildRadius;
-    img = tmp_image;
-    price = tmp_price;
+  
+  Tower (float x, float y, float shootRadius, float buildRadius, PImage image, int price) {
+    this.x = x;
+    this.y = y;
+    this.shootRadius = shootRadius;
+    this.buildRadius = buildRadius;
+    this.img = image;
+    this.price = price;
   }
 
   void shoot() {
-    int max = -1;  // save the pos the first balloon in shootRadius
+    // save the position of the first balloon in shootRadius
+    int max = -1;  
 
     //Check all the balloons in balloonList and find the balloon with the highest position
-    for (int i=0; i < balloonNum; i++) {
+    for (int i=0; i < createdBalloonInRound; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
@@ -27,21 +29,18 @@ abstract class Tower {
         max = balloonList[i].position;
     }
 
-    //if that highest position is -1 ( primitive ) ===> There is no balloon
+    //if that highest position is -1 ===> There is no balloon
     if ( max == -1 )
       return;
 
-    //For every 1s , 1 Weapon is created 
+    //1 weapon is created after delay frames pass 
     if ( frameCount % delay == 0 ) {
-      //distance from the tower cordinate to the track cordinate 
-      float d =dist(track.x[max], track.y[max], x, y);
+      float d = dist(track.x[max], track.y[max], x, y);            //distance from the tower cordinate to the track cordinate 
 
-      //Speed in term of x,y direction 
       float xSpeed = (track.x[max] - x) * speed / d;
       float ySpeed = (track.y[max] - y) * speed / d;
 
-      //create new weapon
-      weaponList[weaponNum] = newWeapon(x, y, xSpeed, ySpeed);
+      weaponList[weaponNum] = newWeapon(x, y, xSpeed, ySpeed);     //create new weapon
       weaponNum++;
     }
   }
@@ -75,11 +74,11 @@ class IceTower extends Tower {
 
   void shoot() {
     // delay between shots
-    if ( frameCount % delay != 0 )
+    if (frameCount % delay != 0)
       return;
       
     //freeze all balloons in shooting radius for freezeTime frames
-    for (int i=0; i < balloonNum; i++) {
+    for (int i=0; i < createdBalloonInRound; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;

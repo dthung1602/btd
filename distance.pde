@@ -30,8 +30,8 @@ boolean touch(Weapon wp, Balloon bl) {
   return true;
 }
 
-boolean touchEx(Weapon wp, Balloon bl) {
-  if (distance(wp,bl) > wp.explodeRadius) 
+boolean touchEx(Bomb b, Balloon bl) {
+  if (distance(b,bl) > b.explodeRadius) 
     return false;
   return true;
 }

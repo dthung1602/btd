@@ -1,8 +1,8 @@
 class Track {
-  int trackNum;                 // tell if track is track0 or track1, ...
-  int trackWidth = 10;          // towers must not be placed closer to path than 10px 
-  int defaultHealth = 200;
-  int defaultMoney = 1000;
+  int trackNum;                 // tells if track is track0 or track1, ...
+  int trackWidth = 10;          // towers must not be placed closer to balloon path than 10px 
+  int defaultHealth = 50;
+  int defaultMoney = 150;
 
   //x,y hold posible balloon positions on the screen
   float x[];

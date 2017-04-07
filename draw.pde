@@ -3,7 +3,7 @@ void draw() {
   
   //only draw towers, balloons, ... when not pausing
   if (!pausing) {
-    //checkGameEnd();
+    checkGameEnd();
     
     //only draw balloons and weapons when player have not finish round
     if (starting) {
@@ -27,7 +27,7 @@ void checkGameEnd() {
     screen = winScreen;    
     pausing = true;
   } 
-  if (currentRound == (totalRounds+1)) {
+  if (currentRound == (TOTAL_ROUNDS+1)) {
     screen = loseScreen;
     pausing = true;
   }
@@ -44,69 +44,80 @@ void createBalloon () {
   if ((frameCount - oldFrame) == newBalloonDelay) {           
     oldFrame = frameCount;                                
     newBalloonDelay = (int) random(5, 25);               // random number of frame till the next balloon's creation
-    int i = (int)random(0, 100+1);                       // random integer for choosing type of balloon to create                                           // number of balloons created
+    int i = (int)random(0, 100);                         // random integer for choosing type of balloon to create                                           // number of balloons created
 
+    // 100% red balloons when round <=2
     if (currentRound <= 2) {
-      balloonList[balloonNum] = new RedBalloon();
+      balloonList[createdBalloonInRound] = new RedBalloon();
+      
+    // 40% red, 60% blue
     } else if (currentRound <= 5) {
       if (i <= 40) {
-        balloonList[balloonNum] = new RedBalloon();
+        balloonList[createdBalloonInRound] = new RedBalloon();
       } else {
-        balloonList[balloonNum] = new BlueBalloon();
+        balloonList[createdBalloonInRound] = new BlueBalloon();
       }
+      
+    // 25% red, 35% blue, 40% green 
     } else if (currentRound <= 9) {
       if (i <= 25) {
-        balloonList[balloonNum] = new RedBalloon();
+        balloonList[createdBalloonInRound] = new RedBalloon();
       } else if (i <= 60) {
-        balloonList[balloonNum] = new BlueBalloon();
+        balloonList[createdBalloonInRound] = new BlueBalloon();
       } else {
-        balloonList[balloonNum] = new GreenBalloon();
+        balloonList[createdBalloonInRound] = new GreenBalloon();
       }
+    
+    // 10% red, 20% blue, 30% green, 40% yellow 
     } else if (currentRound <= 14) {
       if (i <= 10) {
-        balloonList[balloonNum] = new RedBalloon();
+        balloonList[createdBalloonInRound] = new RedBalloon();
       } else if (i <= 30) {
-        balloonList[balloonNum] = new BlueBalloon();
+        balloonList[createdBalloonInRound] = new BlueBalloon();
       } else if (i <= 60) {
-        balloonList[balloonNum] = new GreenBalloon();
+        balloonList[createdBalloonInRound] = new GreenBalloon();
       } else {
-        balloonList[balloonNum] = new YellowBalloon();
+        balloonList[createdBalloonInRound] = new YellowBalloon();
       }
+      
+    // 10% red, 15% blue, 20% green, 25% yellow, 30% pink
     } else if (currentRound <= 20) {
       if (i <= 10) {
-        balloonList[balloonNum] = new RedBalloon();
+        balloonList[createdBalloonInRound] = new RedBalloon();
       } else if (i <= 25) {
-        balloonList[balloonNum] = new BlueBalloon();
+        balloonList[createdBalloonInRound] = new BlueBalloon();
       } else if (i <= 45) {
-        balloonList[balloonNum] = new GreenBalloon();
+        balloonList[createdBalloonInRound] = new GreenBalloon();
       } else if (i <= 70) {
-        balloonList[balloonNum] = new YellowBalloon();
+        balloonList[createdBalloonInRound] = new YellowBalloon();
       } else {
-        balloonList[balloonNum] = new PinkBalloon();
+        balloonList[createdBalloonInRound] = new PinkBalloon();
       }
+      
+    // 0% red, 15% blue, 20% green, 25% yellow, 30% pink, 10% rainbow
     } else {
       if (i <= 10) {
-        balloonList[balloonNum] = new RainbowBalloon();
+        balloonList[createdBalloonInRound] = new RainbowBalloon();
       } else if (i <= 25) {
-        balloonList[balloonNum] = new BlueBalloon();
+        balloonList[createdBalloonInRound] = new BlueBalloon();
       } else if (i <= 45) {
-        balloonList[balloonNum] = new GreenBalloon();
+        balloonList[createdBalloonInRound] = new GreenBalloon();
       } else if (i <= 70) {
-        balloonList[balloonNum] = new YellowBalloon();
+        balloonList[createdBalloonInRound] = new YellowBalloon();
       } else {
-        balloonList[balloonNum] = new PinkBalloon();
+        balloonList[createdBalloonInRound] = new PinkBalloon();
       }
     }
 
-    createdBalloonInRound++;                                      // increase createdBalloonInRound
-    balloonNum++;                                                 // increase number of balloons
+    // increase number of created balloon in this round
+    createdBalloonInRound++;  
   }
 }
 
 
 //--------------------draw and move balloons----------------------
 void drawBalloons() {
-  for (int i=0; i<balloonNum; i++) {
+  for (int i=0; i<createdBalloonInRound; i++) {
     //---skip poped balloons----
     if (balloonList[i].status == 1) 
       continue;
@@ -123,7 +134,7 @@ void drawBalloons() {
     //-----move balloons-------
     balloonList[i].position += balloonList[i].speed;
 
-    //----check if balloon escape-----
+    //----check whether balloon has escaped-----
     if (balloonList[i].position > track.x.length-2) {
       health -= balloonList[i].health;
       balloonList[i].status = 1;
@@ -136,9 +147,14 @@ void drawBalloons() {
 void drawWeapons() {
   for (int i=0; i<weaponNum; i++) {
     if (weaponList[i].status==0) {
+      //move
       weaponList[i].x += weaponList[i].speedX;
       weaponList[i].y += weaponList[i].speedY;
+      
+      //draw
       image(weaponList[i].img, weaponList[i].x, weaponList[i].y);
+      
+      //check whether weapon hit any balloon
       weaponList[i].pop();
     }
   }
@@ -147,17 +163,18 @@ void drawWeapons() {
 
 //------------------check if player has finished this round---------------------
 void checkFinishRound () {
-  if ( createdBalloonInRound == totalBalloonInRound && popCount == createdBalloonInRound ) {  
-    totalBalloonInRound = (int)(totalBalloonInRound * difficultyLevel);     // increase level of difficulty after each round
-    currentRound++;                                                   // increase round
-    popCount = 0;                                                     // reset popCount after each round
-    createdBalloonInRound = 0;                                           // reset createdBalloonInRound
-    balloonList = new Balloon [BALLOON_LIST_SIZE];                                   // reset balloonList
-    weaponList  = new Weapon [WEAPON_LIST_SIZE];                                    // reset weaponList
-    starting = false;
-    balloonNum = 0;
-    weaponNum  = 0;
-    screen.buttonList[1].enable = true;
+  if (createdBalloonInRound == totalBalloonInRound && popCount == createdBalloonInRound) {
+    currentRound++;                                                    // increase round
+    totalBalloonInRound = (int)(totalBalloonInRound * DIFFICULTY);     // increase number of balloon-to-be-created next round
+    
+    popCount = 0;                                                      // reset popCount after each round
+    createdBalloonInRound = 0;                                         // reset created balloon in round
+    balloonList = new Balloon [BALLOON_LIST_SIZE];                     // reset balloonList
+    weaponList  = new Weapon [WEAPON_LIST_SIZE];                       // reset weaponList
+    weaponNum  = 0;                                                    // reset weapon counter
+    
+    starting = false;                                                  // let player build new tower before starting new round
+    screen.buttonList[1].enable = true;                                // enable saving game
   }
 }
 
@@ -165,10 +182,14 @@ void checkFinishRound () {
 //--------------------draw towers and shoot----------------------
 void drawTower() {
   //-----draw tower-----
-  fill(WHITE);
   for (int i=0; i<towerList.length; i++) {
-    if (towerList[i] == chosenTower)
+    // draw a circle around chosen tower
+    if (towerList[i] == chosenTower) {
+      fill(WHITE);
       ellipse(towerList[i].x, towerList[i].y, towerList[i].shootRadius*2, towerList[i].shootRadius*2);
+    }
+      
+    //draw tower
     image(towerList[i].img, towerList[i].x, towerList[i].y);
   }
 
@@ -181,12 +202,12 @@ void drawTower() {
 
 //------highlight buttons if mouse on them; draw building tower--------------
 void drawMouse() {
-  //-----check if mouse on any button-----
-  fill(BLUE);
+  //-----check whether mouse on any button-----
   Button b;
   for (int i=0; i<screen.buttonList.length; i++) {
     b = screen.buttonList[i]; 
     if (b.containPoint(mouseX, mouseY) && b.enable) {
+      fill(BLUE);
       rect(b.x1, b.y1, b.x2, b.y2);
       return;
     }
@@ -205,7 +226,7 @@ void drawMouse() {
         break;
       }
 
-    //check if the building tower touch the others
+    //check if the building tower touch other towers
     if (!buildingTowerConflict)
       for (int i=0; i<towerList.length; i++) {
         if (touch(buildingTower, towerList[i])) {
@@ -214,15 +235,14 @@ void drawMouse() {
         }
       }
 
-    //select building tower color circle
+    //select color around building tower circle
     if (buildingTowerConflict)
       fill(RED);
     else 
       fill(WHITE);
-
-    //draw tower
-    ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);
-    image(buildingTower.img, mouseX, mouseY, 50, 50);
+    
+    ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);       //draw circle around tower
+    image(buildingTower.img, mouseX, mouseY, 50, 50);                                        //draw tower
   }
 }
 
@@ -252,6 +272,7 @@ void showInfo() {
     } else {
       screen.buttonList[0].enable = false;
     }
+    
     return;
   }
   
@@ -263,11 +284,13 @@ void showInfo() {
     text("Track 2", width/2-50, 235);
     text("Track 3", width*5/6-50, 235);
 
+    // positions to print text
     float xScore0 = width/6;
     float xScore1 = width/2;
     float xScore2 = width*5/6;
     float yScore = height/3 + 100;
 
+    // print scores
     fill(250, 255, 0);
     textFont(fontSmall);
     for (int i = 0; i < 5; i++) {

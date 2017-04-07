@@ -5,15 +5,12 @@ abstract class Balloon {
   PImage img;
   int status = 0;                  // 0 = in game, 1 = poped
   int freeze = 0;                  // freezing time
-  int moneyBonus;
-  
-  Balloon() {}
+  int moneyBonus;                  // how much money player get when balloon is popped
 }
 
 
 class RedBalloon extends Balloon {
   RedBalloon() {
-    super();
     speed = 1;
     health = 1;
     img = redBalloonPic;
@@ -24,7 +21,6 @@ class RedBalloon extends Balloon {
 
 class BlueBalloon extends Balloon {
   BlueBalloon() {
-    super();
     speed = 2;
     health = 2;
     img = blueBalloonPic; 
@@ -35,7 +31,6 @@ class BlueBalloon extends Balloon {
 
 class GreenBalloon extends Balloon {
   GreenBalloon() {
-    super();
     speed = 3;
     health = 3;
     img = greenBalloonPic;
@@ -46,7 +41,6 @@ class GreenBalloon extends Balloon {
 
 class YellowBalloon extends Balloon {
   YellowBalloon() {
-    super();
     speed = 4;
     health = 4;
     img = yellowBalloonPic;
@@ -57,7 +51,6 @@ class YellowBalloon extends Balloon {
 
 class PinkBalloon extends Balloon {
   PinkBalloon() {
-    super();
     speed = 5;
     health = 5;
     img = pinkBalloonPic;
@@ -68,8 +61,7 @@ class PinkBalloon extends Balloon {
 
 class RainbowBalloon extends Balloon {
   RainbowBalloon() {
-    super();
-    speed = 4;
+    speed = 5;
     health = 15;
     img = rainbowBalloonPic;
     moneyBonus = 125;

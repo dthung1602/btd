@@ -3,11 +3,11 @@ abstract class Button {
   float x2, y2;                      // lower right corner
   boolean enable = true;
 
-  Button(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    x1 = tmp_x1;
-    y1 = tmp_y1;
-    x2 = tmp_x2;
-    y2 = tmp_y2;
+  Button(float x1, float y1, float x2, float y2) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
   }
 
   boolean containPoint(float x, float y) {
@@ -20,10 +20,11 @@ abstract class Button {
 }
 
 
-// -----------------menu buttons---------------------
+// -------------------------menu buttons--------------------------------------
+
 class NewGameButton extends Button {
-  NewGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  NewGameButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {  
@@ -33,24 +34,25 @@ class NewGameButton extends Button {
 
 
 class SaveGameButton extends Button {
-  SaveGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  SaveGameButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {
     String [] data = new String [4 + towerList.length];
     
-    // 4 first line in file are used to save trackNum, health, money, current round
+    // 4 first line in file are used to save trackNum, health, money & current round
     data[0] = str(track.trackNum);
     data[1] = str(money);
     data[2] = str(health);
     data[3] = str(currentRound);
 
-    // following lines save tower list in format 'type x y'. type is determined by towerType function
+    // following lines are used to save tower list in format 'type x y'. type is determined by towerType function
     for (int i=0; i<towerList.length; i++) {
       data[i+4] = towerType(towerList[i]) + " " +str(towerList[i].x) + " " +str(towerList[i].y);
     }
-
+    
+    // save to file
     saveStrings("./Data/savedgame.txt", data);
   }
 
@@ -67,8 +69,8 @@ class SaveGameButton extends Button {
 
 
 class LoadGameButton extends Button {
-  LoadGameButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  LoadGameButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {
@@ -82,19 +84,20 @@ class LoadGameButton extends Button {
     currentRound = int(data[3]);
     
     //set other values
-    totalBalloonInRound = (int) pow(difficultyLevel, currentRound - 1) * 10;
-    towerList   = new Tower [data.length-4];
+    totalBalloonInRound = (int) pow(DIFFICULTY, currentRound - 1) * 10;
     balloonList = new Balloon [BALLOON_LIST_SIZE];
     weaponList  = new Weapon [WEAPON_LIST_SIZE];
-    weaponNum  = 0;
-    balloonNum = 0;
+    weaponNum   = 0;
+    createdBalloonInRound = 0;
     pausing  = false;
     starting = false;
     screen    = playScreen;
     screen.bg = map[track.trackNum];
     
     //create towers
+    towerList    = new Tower [data.length-4];
     int towerNum = 0;
+    
     for (int i=4; i<data.length; i++) {
       int type = int(split(data[i], ' ')[0]);
       float x  = float(split(data[i], ' ')[1]);
@@ -103,28 +106,26 @@ class LoadGameButton extends Button {
       switch (type) {
         case 0:
           towerList[towerNum] = new DartMonkey(x, y);
-          towerNum++;
           break;
         case 1:
           towerList[towerNum] = new IceTower(x, y);
-          towerNum++;
           break;
         case 2:
           towerList[towerNum] = new BombTower(x, y);
-          towerNum++;
           break;
         case 3:
           towerList[towerNum] = new SuperMonkey(x, y);
-          towerNum++;
       }
+      
+      towerNum++;
     }
   }
 }
 
 
 class HighScoreButton extends Button {
-  HighScoreButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  HighScoreButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {
@@ -158,8 +159,8 @@ class HighScoreButton extends Button {
 
 
 class QuitButton extends Button {
-  QuitButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  QuitButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {
@@ -168,7 +169,7 @@ class QuitButton extends Button {
 }
 
 
-//--------------create & sell towers-----------------
+//---------------------------create & sell towers---------------------------------
 class NewDartMonkey extends Button {
   NewDartMonkey (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
@@ -265,7 +266,6 @@ class NewSuperMonkey extends Button {
 }
 
 
-
 class SellButton extends Button {
   SellButton (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
@@ -275,8 +275,8 @@ class SellButton extends Button {
     if (chosenTower != null) {
       for (int i=0; i<towerList.length; i++)
         if (towerList[i] == chosenTower) {
-          towerList = (Tower []) concat(subset(towerList, 0, i), subset(towerList, i+1));
-          money += (int) chosenTower.price*SELL_PERCENT;
+          towerList = (Tower []) concat(subset(towerList, 0, i), subset(towerList, i+1));   // remove chosen tower from tower list
+          money += (int) chosenTower.price*SELL_PERCENT;                                    // return some money for player
           chosenTower = null;
           return;
         }
@@ -288,33 +288,33 @@ class SellButton extends Button {
 //------------------game control buttons---------------------
 
 class FastOrSlowButton extends Button {
-  FastOrSlowButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  FastOrSlowButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {
     chosenTower = null;
     buildingTower = null;
     
-    if (starting) {
+    if (starting) {                            // adjust speed when starting
       if (frameRate == FAST) {
         frameRate(SLOW);
       } else {
         frameRate(FAST);
       }
-    } else {
-      frameRate(SLOW);                // default play slowly when start
+    } else {                                  // start this round
+      frameRate(SLOW);                        // default play slowly when start
       starting = true;
       oldFrame = frameCount;
-      screen.buttonList[1].enable = false;
+      screen.buttonList[1].enable = false;    // disable save button when player started this round
     }
   }
 }
 
 
 class MenuButton extends Button {  
-  MenuButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  MenuButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
   }
 
   void action() {
@@ -326,13 +326,13 @@ class MenuButton extends Button {
 }
 
 
-//------------Choosing track Button-------------
+//------------------------Choosing track Button---------------------------------
 
 class ChooseTrackButton extends Button {
   int trackNum;
   
-  ChooseTrackButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2, int num) {
-    super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
+  ChooseTrackButton(float x1, float y1, float x2, float y2, int num) {
+    super(x1, y1, x2, y2);
     trackNum = num;
   }
 
@@ -354,51 +354,7 @@ class ChooseTrackButton extends Button {
     popCount = 0;
     
     health = track.defaultHealth;
-    money = track.defaultMoney;
+    money  = track.defaultMoney;
     currentRound = 1;
   }
 }
-
-
-/*------------------------ temporary disable-------------------------------
- class ResumeButton extends Button {
- ResumeButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
- super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
- }
- 
- void action(){
- pausing = false;
- screen = playScreen;
- } 
- }
- 
- 
- class PauseButton extends Button {
- PauseButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2){
- super(tmp_x1, tmp_y1, tmp_x2, tmp_y2);
- }
- 
- void action(){
- pausing = !pausing;
- }
- }
- 
- 
- class PlayAgainButton extends Button {
- PlayAgainButton(float tmp_x1, float tmp_y1, float tmp_x2, float tmp_y2) {
- super(tmp_x1, tmp_y1, tmp_x2, tmp_y2); 
- }
- 
- void action() {
- pausing = false;
- screen = playScreen;
- //reset health, towerlist, weaponlist
- towerList = new Tower[0];
- weaponList = new Weapon[0];
- health = track.defaultHealth;
- money = track.defaultMoney;
- track.round = 1;
- }
- }
- 
- */
