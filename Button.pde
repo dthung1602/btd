@@ -54,6 +54,10 @@ class SaveGameButton extends Button {
     
     // save to file
     saveStrings("./Data/savedgame.txt", data);
+    
+    // inform player
+    message = "Game has been saved";
+    messageTime = 100;
   }
 
   private String towerType (Tower tw) {
@@ -85,9 +89,8 @@ class LoadGameButton extends Button {
     
     //set other values
     totalBalloonInRound = (int) pow(DIFFICULTY, currentRound - 1) * 10;
-    balloonList = new Balloon [BALLOON_LIST_SIZE];
-    weaponList  = new Weapon [WEAPON_LIST_SIZE];
     weaponNum   = 0;
+    effectNum = 0;
     createdBalloonInRound = 0;
     pausing  = false;
     starting = false;
@@ -297,17 +300,23 @@ class FastOrSlowButton extends Button {
     buildingTower = null;
     
     if (starting) {                            // adjust speed when starting
-      if (frameRate == FAST) {
+      if (round(frameRate) == FAST) {
         frameRate(SLOW);
+        message = "Game speed: slow";
       } else {
         frameRate(FAST);
+        message = "Game speed: fast";
       }
     } else {                                  // start this round
       frameRate(SLOW);                        // default play slowly when start
       starting = true;
       oldFrame = frameCount;
       screen.buttonList[1].enable = false;    // disable save button when player started this round
+      message = "Round " + str(currentRound) + " starts!";   // inform player
+      println(frameRate, starting);
     }
+    
+    messageTime = 100;                        // display message in 100 frames
   }
 }
 
@@ -345,14 +354,12 @@ class ChooseTrackButton extends Button {
     screen.bg = map[trackNum];
     
     //initialize values
-    balloonList = new Balloon [BALLOON_LIST_SIZE];
-    weaponList  = new Weapon [WEAPON_LIST_SIZE];
     towerList   = new Tower [0];
-    
     totalBalloonInRound = 10;
     createdBalloonInRound = 0;
     popCount = 0;
     weaponNum = 0;
+    effectNum = 0;
     
     health = track.defaultHealth;
     money  = track.defaultMoney;

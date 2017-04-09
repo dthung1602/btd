@@ -76,14 +76,25 @@ class IceTower extends Tower {
     // delay between shots
     if (frameCount % delay != 0)
       return;
-      
+    
+    
+    
     //freeze all balloons in shooting radius for freezeTime frames
+    boolean hitTarget = false;
     for (int i=0; i < createdBalloonInRound; i++) {
       //skip popped balloons
       if (balloonList[i].status == 1)
         continue;
-      if (touch(this, balloonList[i])) 
+      if (touch(this, balloonList[i])) {
         balloonList[i].freeze = freezeTime;
+        hitTarget = true;
+      }
+    }
+    
+    //create freezing effect
+    if (hitTarget) {
+      effectList[effectNum] = new FreezeEffect(x, y);
+      effectNum++;
     }
   }
 }

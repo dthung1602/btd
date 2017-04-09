@@ -17,18 +17,19 @@
 //constants
 float SELL_PERCENT = 0.8;                 // percent of original price player can get when sell a tower
 int   TOTAL_ROUNDS = 30;                  // total rounds of a map
-float DIFFICULTY   = 1.3;                 // determine how fast total number of balloon in one round increase  
+float DIFFICULTY   = 1.2;                 // determine how fast total number of balloon in one round increase  
 
 color WHITE = color(100, 100, 100, 100);   
 color RED   = color(255, 0, 0, 100);
 color BLUE  = color(0, 150, 250, 100);
+color CLEAR_BLUE  = color(50, 180, 250, 70);
 
 int FAST = 50;                            // frame rate 
 int SLOW = 25;                            // frame rate
 
-int BALLOON_LIST_SIZE = 500;
-int WEAPON_LIST_SIZE  = 1500;
-
+int BALLOON_LIST_SIZE = 2000;
+int WEAPON_LIST_SIZE  = 3000;
+int EFFECT_LIST_SIZE  = 1000;
 
 //---------constant objects, initialized in setup-------------------
 Screen menuScreen;
@@ -70,8 +71,9 @@ Track track;
 boolean starting = false;                  // true: player start a round;    false: round if finished
 boolean pausing = true;                    // true: menu;                    false: in game
 
-Balloon balloonList [] = {};              
-Weapon weaponList []   = {};
+Balloon balloonList [] = new Balloon [BALLOON_LIST_SIZE];
+Weapon weaponList []   = new Weapon [WEAPON_LIST_SIZE];
+Effect effectList []   = new Effect [EFFECT_LIST_SIZE];
 Tower towerList []     = {};
 
 Tower chosenTower   = null;                // the tower that currently being selected
@@ -86,6 +88,7 @@ int totalBalloonInRound   = 0;             // total number of balloons in curren
 int createdBalloonInRound = 0;             // number of created balloons in current round
 int popCount              = 0;             // count number of popped balloons in current round
 int weaponNum = 0;                         // number of weapon created in current round
+int effectNum = 0;                         // number of effect in current round
 
 int oldFrame        = 0;                   // save frame since the last time a balloon was created
 int newBalloonDelay = 25;                  // delay time between creation of two balloons; will receive random values in game

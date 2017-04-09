@@ -12,7 +12,8 @@ void draw() {
       drawWeapons();
       checkFinishRound();
     }
-
+    
+    drawEffect();
     drawTower();
   }
   
@@ -175,6 +176,17 @@ void checkFinishRound () {
     
     starting = false;                                                  // let player build new tower before starting new round
     screen.buttonList[1].enable = true;                                // enable saving game
+  }
+}
+
+
+//---------------------draw effects: freeze, explosion,...----------------
+void drawEffect() {
+  for (int i=0; i<effectNum; i++) {
+    //skip finished effect
+    if (effectList[i].status == 1)
+      continue;
+    effectList[i].show();
   }
 }
 
