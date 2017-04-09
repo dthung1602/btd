@@ -47,20 +47,23 @@ class Dart extends Weapon{
 
 //---bomb bullet---------
 class Bomb extends Weapon{
-  float explodeRadius = 80;      // all balloons in this radius when bomb hit taget will receive damage
+  float explodeRadius = 60;      // all balloons in this radius when bomb hit taget will receive damage
   
   Bomb (float x, float y, float speedX, float speedY) {
     super(x, y, speedX, speedY);
     damage = 2;
-    popRadius = 40;
+    popRadius = 30;
     img = bombPic;
   }
   
   void pop() {
     for (int i = 0; i<createdBalloonInRound; i++) {
-      if (balloonList[i].status == 0 && touch(this, balloonList[i])) {
-        status = 1;
-        //-----------explode-------------
+      if (balloonList[i].status == 0 && touch(this, balloonList[i])) {        
+        // show explosion image
+        effectList[effectNum] = new ExplosionEffect(x, y);
+        effectNum++;
+        
+        // pop surrounding balloons
         for (int j = 0; j<createdBalloonInRound; j++) {
           if (balloonList[j].status == 1)      // skip popped balloons
             continue;
@@ -72,6 +75,10 @@ class Bomb extends Weapon{
             money += balloonList[j].moneyBonus;
           }
         }
+        
+        //stop checking other balloons
+        status = 1;
+        return;
       }
     }
   }

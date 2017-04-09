@@ -57,6 +57,9 @@ PImage dartPic;
 PImage bombPic;
 PImage laserPic;
 
+PImage explosionPic;
+PImage snowPic;
+
 PImage map[] = new PImage [3];
 
 PFont fontSmall;
@@ -131,6 +134,10 @@ void setup() {
   dartPic  = loadImage("./Pic/dart.png");
   bombPic  = loadImage("./Pic/bomb.png");
   laserPic = loadImage("./Pic/laser.png");
+  
+  //effects' images
+  explosionPic = loadImage("./Pic/laser.png");
+  snowPic      = loadImage("./Pic/dart.png");
   
   //backgrounds' images
   for (int i=0; i<3; i++)

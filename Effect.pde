@@ -19,7 +19,7 @@ class FreezeEffect extends Effect {
   
   FreezeEffect(float x, float y) {
     super(x, y);
-    time = 5;
+    time = 8;
     inc = (int) map(1,0,time,0,maxRadius);
   }
   
@@ -36,5 +36,33 @@ class FreezeEffect extends Effect {
     fill(CLEAR_BLUE);
     ellipse(x, y, radius*2, radius*2);
     noStroke();
+    
+    //draw snowflake
+    image(snowPic, x, y, radius*2, radius*2);
+  }
+}
+
+
+class ExplosionEffect extends Effect {
+  int size = 0;                              // current size, will increase
+  int maxSize = 200;                         // max size
+  int inc;                                   // how much size will increase in show()
+  
+  ExplosionEffect(float x, float y) {
+    super(x, y);
+    time = 5;
+    inc = (int) map(1,0,time,0,maxSize);
+  }
+  
+  void show() {
+    time -= 1;             // reduce time of effect
+    if (time == 0) {       // effect has finished
+      status = 1;
+      return;
+    } 
+    size += inc;         // incease radius
+    
+    //draw fire
+    image(explosionPic, x, y, size, size);
   }
 }
