@@ -24,11 +24,11 @@ void draw() {
 //-------------------check if player has win or lost yet-------------------
 void checkGameEnd() {
   if (health<=0) {
-    screen = winScreen;    
+    screen = loseScreen;    
     pausing = true;
   } 
   if (currentRound == (TOTAL_ROUNDS+1)) {
-    screen = loseScreen;
+    screen = winScreen;
     pausing = true;
   }
 }

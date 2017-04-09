@@ -352,6 +352,7 @@ class ChooseTrackButton extends Button {
     totalBalloonInRound = 10;
     createdBalloonInRound = 0;
     popCount = 0;
+    weaponNum = 0;
     
     health = track.defaultHealth;
     money  = track.defaultMoney;
