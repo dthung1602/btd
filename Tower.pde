@@ -5,7 +5,8 @@ abstract class Tower {
   PImage img;
   int price;
   int speed;                   // how fast the weapon of this tower travel
-  float delay ;                // delay time between shots
+  float delay;                 // delay time between shots
+  float angle = -PI/2;          // angle of rotation
   
   Tower (float x, float y, float shootRadius, float buildRadius, PImage image, int price) {
     this.x = x;
@@ -43,6 +44,9 @@ abstract class Tower {
       weaponList[weaponNum] = newWeapon(x, y, xSpeed, ySpeed);     //create new weapon
       weaponNum++;
     }
+    
+    // rotate the tower
+    angle = -atan2(y-track.y[max],track.x[max]-x);
   }
   
   private Weapon newWeapon(float x, float y, float xSpeed, float ySpeed) {

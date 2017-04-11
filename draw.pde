@@ -193,6 +193,11 @@ void drawEffect() {
 
 //--------------------draw towers and shoot----------------------
 void drawTower() {
+  //------shoot------
+  if (starting) 
+    for (int i=0; i<towerList.length; i++)
+      towerList[i].shoot();
+  
   //-----draw tower-----
   for (int i=0; i<towerList.length; i++) {
     // draw a circle around chosen tower
@@ -202,13 +207,12 @@ void drawTower() {
     }
       
     //draw tower
-    image(towerList[i].img, towerList[i].x, towerList[i].y);
+    translate(towerList[i].x, towerList[i].y);
+    rotate(towerList[i].angle + PI/2);
+    image(towerList[i].img, 0, 0);
+    rotate(-towerList[i].angle - PI/2);
+    translate(-towerList[i].x, -towerList[i].y);
   }
-
-  //------shoot------
-  if (starting) 
-    for (int i=0; i<towerList.length; i++)
-      towerList[i].shoot();
 }
 
 
