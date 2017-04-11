@@ -3,7 +3,7 @@ abstract class Effect {
   int time;            // how long effect last 
   int status;          // 0 = still happen; 1 = done
   
-  Effect(float x, float y){
+  Effect(float x, float y) {
     this.x = x;
     this.y = y;
   }
