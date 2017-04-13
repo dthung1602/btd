@@ -1,6 +1,6 @@
 void draw() {
   background(screen.bg);
-  
+  bgSound.play();
   
   //only draw towers, balloons, ... when not pausing
   if (!pausing) {

@@ -19,9 +19,9 @@ float SELL_PERCENT = 0.8;                 // percent of original price player ca
 int   TOTAL_ROUNDS = 30;                  // total rounds of a map
 float DIFFICULTY   = 1.2;                 // determine how fast total number of balloon in one round increase  
 
-color WHITE = color(100, 100, 100, 100);   
-color RED   = color(255, 0, 0, 100);
-color BLUE  = color(0, 150, 250, 100);
+color WHITE       = color(100, 100, 100, 100);   
+color RED         = color(255, 0, 0, 100);
+color BLUE        = color(0, 150, 250, 100);
 color CLEAR_BLUE  = color(50, 180, 250, 70);
 
 int FAST = 50;                            // frame rate 
@@ -156,7 +156,7 @@ void setup() {
   fontLarge  = loadFont("./Font/font_large.vlw");
   
   
-  //-----------------------load sound-----------------------//
+  //-----------------------load sounds-----------------------//
   bgSound    = minim.loadFile("./Sound/bg.mp3"); 
   dartSound  = minim.loadFile("./Sound/pop.mp3");
   bombSound  = minim.loadFile("./Sound/bomb.mp3");
@@ -225,6 +225,5 @@ void setup() {
 
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
-  bgSound.play();
   pausing = true;
 }
