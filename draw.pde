@@ -1,6 +1,7 @@
 void draw() {
   background(screen.bg);
   
+  
   //only draw towers, balloons, ... when not pausing
   if (!pausing) {
     checkGameEnd();
@@ -139,6 +140,7 @@ void drawBalloons() {
     if (balloonList[i].position > track.x.length-2) {
       health -= balloonList[i].health;
       balloonList[i].status = 1;
+      popCount++;
     }
   }
 }

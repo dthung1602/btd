@@ -5,6 +5,7 @@ abstract class Weapon {
   int damage;                     // damage cause to balloons
   int status;                     // 0 = still in game; 1 = popped balloon and out of game 
   PImage img;
+  AudioPlayer audio;
   
   Weapon (float x, float y, float speedX, float speedY) {
     this.x = x;
@@ -25,6 +26,8 @@ abstract class Weapon {
           balloonList[i].status = 1;
           popCount++;
           money += balloonList[i].moneyBonus;
+          audio.play();
+          audio.rewind();
         }
         status = 1;                          //weapon disappear
         return;
@@ -41,6 +44,7 @@ class Dart extends Weapon{
     damage = 1;
     popRadius = 30;
     img = dartPic;
+    audio = dartSound;
   }
 }
 
@@ -54,6 +58,7 @@ class Bomb extends Weapon{
     damage = 2;
     popRadius = 30;
     img = bombPic;
+    audio = bombSound;   
   }
   
   void pop() {
@@ -72,6 +77,8 @@ class Bomb extends Weapon{
           if (balloonList[j].health <= 0) {
             balloonList[j].status = 1;
             popCount++;
+            bombSound.play();
+            bombSound.rewind();
             money += balloonList[j].moneyBonus;
           }
         }
@@ -92,5 +99,6 @@ class Laser extends Weapon{
     damage = 3;
     popRadius = 40;
     img = laserPic;
+    audio = laserSound;
   }
 }

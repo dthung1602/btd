@@ -99,6 +99,8 @@ class IceTower extends Tower {
     if (hitTarget) {
       effectList[effectNum] = new FreezeEffect(x, y);
       effectNum++;
+      iceSound.play();
+      iceSound.rewind();
     }
   }
 }

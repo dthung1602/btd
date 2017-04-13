@@ -67,6 +67,11 @@ PFont fontMedium;
 PFont fontLarge;
 
 
+import ddf.minim.*;
+ 
+Minim minim;
+AudioPlayer bgSound, dartSound, bombSound, iceSound, laserSound;
+
 //----------------changeable objects-------------------
 Screen screen;
 Track track;
@@ -108,12 +113,11 @@ void setup() {
   
   //--------------------setup basic---------------------//
   size(800, 520);
-  //background(loadImage("./Pic/loading.png"));
   rectMode(CORNERS);
   imageMode(CENTER);
   noStroke();
   frameRate(SLOW);
-  
+  minim = new Minim(this);
   
   //-----------------------load images-----------------------// 
   //balloons' images
@@ -132,11 +136,11 @@ void setup() {
   
   //weapons' images
   dartPic  = loadImage("./Pic/dart.png");
-  bombPic  = loadImage("./Pic/bomb.png");
+  bombPic  = loadImage("./Pic/note7.png");
   laserPic = loadImage("./Pic/laser.png");
   
   //effects' images
-  explosionPic = loadImage("./Pic/laser.png");
+  explosionPic = loadImage("./Pic/explosion.png");
   snowPic      = loadImage("./Pic/dart.png");
   
   //backgrounds' images
@@ -150,6 +154,14 @@ void setup() {
   fontSmall  = loadFont("./Font/font_small.vlw");
   fontMedium = loadFont("./Font/font_medium.vlw");
   fontLarge  = loadFont("./Font/font_large.vlw");
+  
+  
+  //-----------------------load sound-----------------------//
+  bgSound    = minim.loadFile("./Sound/bg.mp3"); 
+  dartSound  = minim.loadFile("./Sound/pop.mp3");
+  bombSound  = minim.loadFile("./Sound/bomb.mp3");
+  laserSound = minim.loadFile("./Sound/laser.mp3");
+  iceSound   = minim.loadFile("./Sound/ice.mp3");
   
   
   //----------------------create objects---------------------//
@@ -213,5 +225,6 @@ void setup() {
 
   //-----------------------------show menu----------------------------//
   screen = menuScreen;
+  bgSound.play();
   pausing = true;
 }

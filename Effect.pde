@@ -36,9 +36,6 @@ class FreezeEffect extends Effect {
     fill(CLEAR_BLUE);
     ellipse(x, y, radius*2, radius*2);
     noStroke();
-    
-    //draw snowflake
-    image(snowPic, x, y, radius*2, radius*2);
   }
 }
 
