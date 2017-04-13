@@ -8,7 +8,7 @@ class Track {
   float x[];
   float y[];
 
-  Track(int num ) {
+  Track(int num) {
     trackNum = num;
     
     //load data from file

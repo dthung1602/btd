@@ -6,7 +6,7 @@ abstract class Tower {
   int price;
   int speed;                   // how fast the weapon of this tower travel
   float delay;                 // delay time between shots
-  float angle = -PI/2;          // angle of rotation
+  float angle = -PI/2;         // angle of rotation
   
   Tower (float x, float y, float shootRadius, float buildRadius, PImage image, int price) {
     this.x = x;
@@ -80,8 +80,6 @@ class IceTower extends Tower {
     // delay between shots
     if (frameCount % delay != 0)
       return;
-    
-    
     
     //freeze all balloons in shooting radius for freezeTime frames
     boolean hitTarget = false;

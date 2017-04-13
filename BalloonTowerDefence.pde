@@ -1,13 +1,13 @@
 //----------------------------------------------------------------------------------------------//
 //                                                                                              //
-//                              PROJECT: BALLOON TOWER DEFENCE                                  //
+//                              PROJECT: BLOONS TOWER DEFENCE                                   //
 //                                                                                              //
 //          Class:      Computer Science Foundation                                             //
 //          Due date:   April 6th ,2017                                                         //
 //          Team member:    Duong Thanh Hung        Nguyen Tuan Kiet                            //
 //                          Nguyen Thanh Long       Huynh Vinh Long                             //
 //                          Le Hong Thang           Quach Tri Thong                             //
-//          Reference: Balloon tower defence 5 (Ninja Kiwi)                                     //
+//          Reference: Bloons tower defence 5 (Ninja Kiwi)                                     //
 //                     https://ninjakiwi.com/Games/Tower-Defense/Bloons-Tower-Defense-5.html    //
 //                                                                                              //
 //----------------------------------------------------------------------------------------------//
@@ -17,7 +17,7 @@
 //constants
 float SELL_PERCENT = 0.8;                 // percent of original price player can get when sell a tower
 int   TOTAL_ROUNDS = 30;                  // total rounds of a map
-float DIFFICULTY   = 1.2;                 // determine how fast total number of balloon in one round increase  
+float DIFFICULTY   = 1.2;                 // determine how fast total number of balloon in one round increasessssssss  
 
 color WHITE       = color(100, 100, 100, 100);   
 color RED         = color(255, 0, 0, 100);

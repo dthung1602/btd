@@ -11,10 +11,10 @@ void draw() {
       createBalloon();
       drawBalloons();
       drawWeapons();
+      drawEffect();
       checkFinishRound();
     }
     
-    drawEffect();
     drawTower();
   }
   
@@ -23,7 +23,7 @@ void draw() {
 }
 
 
-//-------------------check if player has win or lost yet-------------------
+//-------------------check if player has won or lost yet-------------------
 void checkGameEnd() {
   if (health<=0) {
     screen = loseScreen;    
@@ -260,7 +260,7 @@ void drawMouse() {
       fill(WHITE);
     
     ellipse(mouseX, mouseY, buildingTower.shootRadius*2, buildingTower.shootRadius*2);       //draw circle around tower
-    image(buildingTower.img, mouseX, mouseY, 50, 50);                                        //draw tower
+    image(buildingTower.img, mouseX, mouseY);                                                //draw tower
   }
 }
 
