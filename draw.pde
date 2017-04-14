@@ -186,6 +186,7 @@ void checkFinishRound () {
     balloonList = new Balloon [BALLOON_LIST_SIZE];                     // reset balloonList
     weaponList  = new Weapon [WEAPON_LIST_SIZE];                       // reset weaponList
     weaponNum  = 0;                                                    // reset weapon counter
+    effectNum  = 0;                                                    // reset effect counter
     
     starting = false;                                                  // let player build new tower before starting new round
     screen.buttonList[1].enable = true;                                // enable saving game
@@ -236,8 +237,16 @@ void drawMouse() {
   for (int i=0; i<screen.buttonList.length; i++) {
     b = screen.buttonList[i]; 
     if (b.containPoint(mouseX, mouseY) && b.enable) {
+      // highlight the button
       fill(BLUE);
       rect(b.x1, b.y1, b.x2, b.y2);
+      
+      // print tower price if it's a create new tower button
+      if (b instanceof NewTowerButton) {
+        NewTowerButton bt = (NewTowerButton) b;
+        fill(255,0,0);
+        text("$" + str(bt.price), 720, 200);  
+      }
       return;
     }
   }

@@ -72,7 +72,7 @@ class IceTower extends Tower {
   int freezeTime = 60;
   
   IceTower(float x, float y) {
-    super(x, y, 100, 20, iceTowerPic, 75);
+    super(x, y, 100, 20, iceTowerPic, 100);
     delay = 100;
   }
 
@@ -108,7 +108,7 @@ class IceTower extends Tower {
 
 class BombTower extends Tower {
   BombTower(float x, float y) {
-    super(x, y, 100, 27, bombTowerPic, 150);
+    super(x, y, 100, 27, bombTowerPic, 200);
     speed = 20;
     delay = 30;
   }
@@ -117,7 +117,7 @@ class BombTower extends Tower {
 
 class SuperMonkey extends Tower {
   SuperMonkey(float x, float y) {
-    super(x, y, 100, 20, superMonkeyPic, 250);
+    super(x, y, 100, 20, superMonkeyPic, 400);
     speed = 25;
     delay = 7;
   }

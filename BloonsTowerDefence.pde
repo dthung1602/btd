@@ -70,7 +70,11 @@ PFont fontLarge;
 //--------------------sound effects--------------------
 import ddf.minim.*;
 Minim minim;
-AudioPlayer bgSound, dartSound, bombSound, iceSound, laserSound;
+AudioPlayer bgSound;
+AudioPlayer dartSound;
+AudioPlayer iceSound;
+AudioPlayer bombSound;
+AudioPlayer laserSound;
 
 boolean musicEnable = true;
 boolean soundEnable = true;

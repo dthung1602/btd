@@ -173,9 +173,18 @@ class QuitButton extends Button {
 
 
 //---------------------------create & sell towers---------------------------------
-class NewDartMonkey extends Button {
+abstract class NewTowerButton extends Button {
+  int price;
+  
+  NewTowerButton (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+}
+
+class NewDartMonkey extends NewTowerButton {
   NewDartMonkey (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
+    price = 50;
   }
 
   void action() {   
@@ -197,9 +206,10 @@ class NewDartMonkey extends Button {
 }
 
 
-class NewIceTower extends Button {
+class NewIceTower extends NewTowerButton {
   NewIceTower (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
+    price = 100;
   }
 
   void action() {
@@ -221,9 +231,10 @@ class NewIceTower extends Button {
 }
 
 
-class NewBombTower extends Button {
+class NewBombTower extends NewTowerButton {
   NewBombTower (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
+    price = 200;
   }
 
   void action() {
@@ -245,9 +256,10 @@ class NewBombTower extends Button {
 }
 
 
-class NewSuperMonkey extends Button {
+class NewSuperMonkey extends NewTowerButton {
   NewSuperMonkey (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
+    price = 400;
   }
 
   void action() { 
