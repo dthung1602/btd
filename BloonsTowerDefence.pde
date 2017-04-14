@@ -3,11 +3,11 @@
 //                              PROJECT: BLOONS TOWER DEFENCE                                   //
 //                                                                                              //
 //          Class:      Computer Science Foundation                                             //
-//          Due date:   April 6th ,2017                                                         //
+//          Due date:   April 18th ,2017                                                        //
 //          Team member:    Duong Thanh Hung        Nguyen Tuan Kiet                            //
 //                          Nguyen Thanh Long       Huynh Vinh Long                             //
 //                          Le Hong Thang           Quach Tri Thong                             //
-//          Reference: Bloons tower defence 5 (Ninja Kiwi)                                     //
+//          Reference: Bloons tower defence 5 (Ninja Kiwi)                                      //
 //                     https://ninjakiwi.com/Games/Tower-Defense/Bloons-Tower-Defense-5.html    //
 //                                                                                              //
 //----------------------------------------------------------------------------------------------//
