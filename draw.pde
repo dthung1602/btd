@@ -180,6 +180,8 @@ void checkFinishRound () {
   if (createdBalloonInRound == totalBalloonInRound && popCount == createdBalloonInRound) {
     currentRound++;                                                    // increase round
     totalBalloonInRound = (int)(totalBalloonInRound * DIFFICULTY);     // increase number of balloon-to-be-created next round
+    message = "Round " + str(currentRound - 1) + " completed!";        // show message
+    messageTime = 75;                                                  // time of message
     
     popCount = 0;                                                      // reset popCount after each round
     createdBalloonInRound = 0;                                         // reset created balloon in round
@@ -302,6 +304,10 @@ void showInfo() {
       text(message,100, 480);
       messageTime--;
     }
+    
+    // show where the balloons start
+    if (!starting)
+      image(startArrowPic, track.x[5], track.y[5], 50, 50);
 
     //draw sell button
     if (chosenTower != null) {

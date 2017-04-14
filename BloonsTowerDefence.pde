@@ -40,6 +40,7 @@ Screen highScoreScreen;
 Screen choosingTrackScreen;
 
 PImage sellButtonPic;
+PImage startArrowPic;
 
 PImage dartMonkeyPic;
 PImage iceTowerPic;
@@ -120,7 +121,7 @@ int messageTime = 0;                       // how long the message will stay on 
 void setup() {
   
   //--------------------setup basic---------------------//
-  size(800, 520);
+  size(800, 520);  
   rectMode(CORNERS);
   imageMode(CENTER);
   noStroke();
@@ -156,6 +157,7 @@ void setup() {
     map[i] = loadImage("./Pic/map" + str(i) + ".jpg");
   
   sellButtonPic = loadImage("./Pic/sell_button.png");
+  startArrowPic = loadImage("./Pic/start_arrow.png");
   
   
   //-----------------------load fonts------------------------//
