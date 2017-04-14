@@ -67,10 +67,14 @@ PFont fontMedium;
 PFont fontLarge;
 
 
+//--------------------sound effects--------------------
 import ddf.minim.*;
- 
 Minim minim;
 AudioPlayer bgSound, dartSound, bombSound, iceSound, laserSound;
+
+boolean musicEnable = true;
+boolean soundEnable = true;
+
 
 //----------------changeable objects-------------------
 Screen screen;
@@ -183,11 +187,13 @@ void setup() {
     new SellButton(720, 310, 780, 370),
     new SaveGameButton(700, 390, 795, 415),
     new MenuButton(700, 425, 730, 450),
+    new MusicButton(735, 425, 765, 450),
+    new SoundButton(765, 425, 795, 450),
     new FastOrSlowButton(705, 460, 800, 520),
     new NewDartMonkey(705, 80, 750, 120), 
     new NewBombTower(705, 130, 750, 170),
     new NewIceTower(755, 80, 800, 120),
-    new NewSuperMonkey(755, 130, 800, 170)    
+    new NewSuperMonkey(755, 130, 800, 170)
   };
   playScreen = new Screen(bg, buttonList);
    

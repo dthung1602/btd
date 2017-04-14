@@ -26,8 +26,10 @@ abstract class Weapon {
           balloonList[i].status = 1;
           popCount++;
           money += balloonList[i].moneyBonus;
-          audio.play();
-          audio.rewind();
+          if (soundEnable) {
+            audio.play();
+            audio.rewind();
+          }
         }
         status = 1;                          //weapon disappear
         return;
@@ -77,8 +79,10 @@ class Bomb extends Weapon{
           if (balloonList[j].health <= 0) {
             balloonList[j].status = 1;
             popCount++;
-            bombSound.play();
-            bombSound.rewind();
+            if (soundEnable) {
+              bombSound.play();
+              bombSound.rewind();
+            }
             money += balloonList[j].moneyBonus;
           }
         }

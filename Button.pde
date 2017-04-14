@@ -313,7 +313,6 @@ class FastOrSlowButton extends Button {
       oldFrame = frameCount;
       screen.buttonList[1].enable = false;    // disable save button when player started this round
       message = "Round " + str(currentRound) + " starts!";   // inform player
-      println(frameRate, starting);
     }
     
     messageTime = 100;                        // display message in 100 frames
@@ -331,6 +330,42 @@ class MenuButton extends Button {
     buildingTower = null;
     pausing = true;
     screen = menuScreen;
+  }
+}
+
+
+class MusicButton extends Button {
+  MusicButton (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+  
+  void action () {
+    if (musicEnable) {
+      message = "Music disabled";
+      messageTime = 50;
+    } else {
+      message = "Music enabled";
+      messageTime = 50;
+    }
+    musicEnable = !musicEnable;
+  }
+}
+
+
+class SoundButton extends Button {
+  SoundButton (float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+  
+  void action () {
+    if (soundEnable) {
+      message = "Sound effect disabled";
+      messageTime = 50;
+    } else {
+      message = "Sound effect enabled";
+      messageTime = 50;
+    }
+    soundEnable = !soundEnable;
   }
 }
 

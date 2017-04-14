@@ -1,6 +1,6 @@
 void draw() {
   background(screen.bg);
-  bgSound.play();
+  playMusic();
   
   //only draw towers, balloons, ... when not pausing
   if (!pausing) {
@@ -20,6 +20,17 @@ void draw() {
   
   showInfo();
   drawMouse();
+}
+
+//----------------------------play music-----------------------------------
+void playMusic() {
+  if (musicEnable) {
+    if (!bgSound.isPlaying())
+      bgSound.rewind();
+    bgSound.play();
+  } else { 
+    bgSound.pause();
+  }  
 }
 
 
