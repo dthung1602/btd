@@ -58,7 +58,7 @@ class Bomb extends Weapon{
   Bomb (float x, float y, float speedX, float speedY) {
     super(x, y, speedX, speedY);
     damage = 2;
-    popRadius = 30;
+    popRadius = 40;
     img = bombPic;
     audio = bombSound;   
   }

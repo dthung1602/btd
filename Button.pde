@@ -209,7 +209,7 @@ class NewDartMonkey extends NewTowerButton {
 class NewIceTower extends NewTowerButton {
   NewIceTower (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
-    price = 100;
+    price = 125;
   }
 
   void action() {
@@ -259,7 +259,7 @@ class NewBombTower extends NewTowerButton {
 class NewSuperMonkey extends NewTowerButton {
   NewSuperMonkey (float x1, float y1, float x2, float y2) {
     super(x1, y1, x2, y2);
-    price = 400;
+    price = 750;
   }
 
   void action() { 

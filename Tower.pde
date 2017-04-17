@@ -61,7 +61,7 @@ abstract class Tower {
 
 class DartMonkey extends Tower {
   DartMonkey(float x, float y) {
-    super(x, y, 100, 20, dartMonkeyPic, 50);
+    super(x, y, 80, 15, dartMonkeyPic, 50);
     speed = 15;
     delay = 25;
   }
@@ -72,7 +72,7 @@ class IceTower extends Tower {
   int freezeTime = 60;
   
   IceTower(float x, float y) {
-    super(x, y, 100, 20, iceTowerPic, 100);
+    super(x, y, 75, 20, iceTowerPic, 125);
     delay = 100;
   }
 
@@ -108,17 +108,17 @@ class IceTower extends Tower {
 
 class BombTower extends Tower {
   BombTower(float x, float y) {
-    super(x, y, 100, 27, bombTowerPic, 200);
+    super(x, y, 100, 25, bombTowerPic, 200);
     speed = 20;
-    delay = 30;
+    delay = 40;
   }
 }
 
 
 class SuperMonkey extends Tower {
   SuperMonkey(float x, float y) {
-    super(x, y, 100, 20, superMonkeyPic, 400);
+    super(x, y, 200, 30, superMonkeyPic, 750);
     speed = 25;
-    delay = 7;
+    delay = 10;
   }
 }

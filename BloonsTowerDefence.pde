@@ -24,7 +24,7 @@ color RED         = color(255, 0, 0, 100);
 color BLUE        = color(0, 150, 250, 100);
 color CLEAR_BLUE  = color(50, 180, 250, 70);
 
-int FAST = 50;                            // frame rate 
+int FAST = 75;                            // frame rate 
 int SLOW = 25;                            // frame rate
 
 int BALLOON_LIST_SIZE = 2000;

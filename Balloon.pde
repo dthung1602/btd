@@ -14,7 +14,7 @@ class RedBalloon extends Balloon {
     speed = 1;
     health = 1;
     img = redBalloonPic;
-    moneyBonus = 5;
+    moneyBonus = 1;
   }
 }
 
@@ -24,7 +24,7 @@ class BlueBalloon extends Balloon {
     speed = 2;
     health = 2;
     img = blueBalloonPic; 
-    moneyBonus = 10;
+    moneyBonus = 2;
   }
 }
 
@@ -34,7 +34,7 @@ class GreenBalloon extends Balloon {
     speed = 3;
     health = 3;
     img = greenBalloonPic;
-    moneyBonus = 17;
+    moneyBonus = 4;
   }
 }
 
@@ -44,7 +44,7 @@ class YellowBalloon extends Balloon {
     speed = 4;
     health = 4;
     img = yellowBalloonPic;
-    moneyBonus = 23;
+    moneyBonus = 6;
   }
 }
 
@@ -54,7 +54,7 @@ class PinkBalloon extends Balloon {
     speed = 5;
     health = 5;
     img = pinkBalloonPic;
-    moneyBonus = 35;
+    moneyBonus = 7;
   }
 }
 
@@ -64,6 +64,6 @@ class RainbowBalloon extends Balloon {
     speed = 5;
     health = 15;
     img = rainbowBalloonPic;
-    moneyBonus = 125;
+    moneyBonus = 25;
   }
 }

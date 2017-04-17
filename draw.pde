@@ -22,6 +22,7 @@ void draw() {
   drawMouse();
 }
 
+
 //----------------------------play music-----------------------------------
 void playMusic() {
   if (musicEnable) {
@@ -60,19 +61,19 @@ void createBalloon () {
     int i = (int)random(0, 100);                         // random integer for choosing type of balloon to create                                           // number of balloons created
 
     // 100% red balloons when round <=2
-    if (currentRound <= 2) {
+    if (currentRound <= 5) {
       balloonList[createdBalloonInRound] = new RedBalloon();
       
-    // 40% red, 60% blue
-    } else if (currentRound <= 5) {
-      if (i <= 40) {
+    // 60% red, 40% blue
+    } else if (currentRound <= 10) {
+      if (i <= 60) {
         balloonList[createdBalloonInRound] = new RedBalloon();
       } else {
         balloonList[createdBalloonInRound] = new BlueBalloon();
       }
       
     // 25% red, 35% blue, 40% green 
-    } else if (currentRound <= 9) {
+    } else if (currentRound <= 15) {
       if (i <= 25) {
         balloonList[createdBalloonInRound] = new RedBalloon();
       } else if (i <= 60) {
@@ -82,7 +83,7 @@ void createBalloon () {
       }
     
     // 10% red, 20% blue, 30% green, 40% yellow 
-    } else if (currentRound <= 14) {
+    } else if (currentRound <= 20) {
       if (i <= 10) {
         balloonList[createdBalloonInRound] = new RedBalloon();
       } else if (i <= 30) {
@@ -94,7 +95,7 @@ void createBalloon () {
       }
       
     // 10% red, 15% blue, 20% green, 25% yellow, 30% pink
-    } else if (currentRound <= 20) {
+    } else if (currentRound <= 25) {
       if (i <= 10) {
         balloonList[createdBalloonInRound] = new RedBalloon();
       } else if (i <= 25) {
