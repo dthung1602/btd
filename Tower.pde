@@ -108,8 +108,8 @@ class IceTower extends Tower {
 
 class BombTower extends Tower {
   BombTower(float x, float y) {
-    super(x, y, 100, 25, bombTowerPic, 200);
-    speed = 20;
+    super(x, y, 150, 25, bombTowerPic, 200);
+    speed = 7;
     delay = 40;
   }
 }

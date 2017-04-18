@@ -58,7 +58,7 @@ void createBalloon () {
   if ((frameCount - oldFrame) == newBalloonDelay) {           
     oldFrame = frameCount;                                
     newBalloonDelay = (int) random(5, 25);               // random number of frame till the next balloon's creation
-    int i = (int)random(0, 100);                         // random integer for choosing type of balloon to create                                           // number of balloons created
+    int i = (int) random(1, 101);                        // random integer for choosing type of balloon to create                                           // number of balloons created
 
     // 100% red balloons when round <=2
     if (currentRound <= 5) {

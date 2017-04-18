@@ -151,7 +151,16 @@ class HighScoreButton extends Button {
     
       //check if player achieved highscore   
       if (highscore[track.trackNum][4] <= currentRound) 
-        achievedHighscore = true;   
+        achievedHighscore = true;
+        
+      // update file
+      k = 0;
+      for (int i=0; i<3; i++)
+        for (int towerNum=0; towerNum<5; towerNum++) {
+          data[k] = str(highscore[i][towerNum]);
+          k++;
+        }
+      saveStrings("./Data/highscore.txt", data);
     }
 
     //change screen
