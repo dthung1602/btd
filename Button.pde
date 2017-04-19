@@ -202,7 +202,7 @@ class ThemeButton extends Button {
   }
   
   void action() {
-    String data [] = loadStrings("./Theme/theme" + themeNum  + "/data.txt");
+    
   }
 }
 
