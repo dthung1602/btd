@@ -12,7 +12,7 @@ class Track {
     trackNum = num;
     
     //load data from file
-    String[] data = loadStrings("./Data/track" + str(num) + ".txt");
+    String[] data = loadStrings("./Themes/Theme" + theme.themeNum + "/Data/track" + str(num) + ".txt");
     String tmp [];
     x = new float [data.length];
     y = new float [data.length];

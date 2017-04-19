@@ -79,7 +79,7 @@ class LoadGameButton extends Button {
 
   void action() {
     //read file
-    String data []= loadStrings("./Data/savedgame.txt");
+    String data []= loadStrings("./Themes/Theme" + theme.themeNum + "/Data/savedgame.txt");
     
     //set values from data
     track        = new Track(int(data[0]));
@@ -133,7 +133,7 @@ class HighScoreButton extends Button {
 
   void action() {
     //load data from file
-    String data [] = loadStrings("./Data/highscore.txt");
+    String data [] = loadStrings("./Themes/Theme" + theme.themeNum + "/Data/highscore.txt");
 
     //convert data into a table of integer; 3 = number of track; 5 = number of highscores in a track
     highscore = new int [3][5];    
@@ -160,7 +160,7 @@ class HighScoreButton extends Button {
           data[k] = str(highscore[i][towerNum]);
           k++;
         }
-      saveStrings("./Data/highscore.txt", data);
+      saveStrings("./Themes/Theme" + theme.themeNum + "/Data/highscore.txt", data);
     }
 
     //change screen

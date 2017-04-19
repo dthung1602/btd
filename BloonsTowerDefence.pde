@@ -83,6 +83,7 @@ boolean soundEnable = true;
 
 
 //----------------changeable objects-------------------
+Theme theme;
 Screen screen;
 Track track;
 
@@ -129,58 +130,15 @@ void setup() {
   frameRate(SLOW);
   minim = new Minim(this);
   
-  //-----------------------load images-----------------------// 
-  //balloons' images
-  redBalloonPic     = loadImage("./Pic/redballoon.png");
-  blueBalloonPic    = loadImage("./Pic/blueballoon.png");
-  greenBalloonPic   = loadImage("./Pic/greenballoon.png");
-  yellowBalloonPic  = loadImage("./Pic/yellowballoon.png");
-  pinkBalloonPic    = loadImage("./Pic/pinkballoon.png");
-  rainbowBalloonPic = loadImage("./Pic/rainbowballoon.png");
-  
-  //towers' images
-  dartMonkeyPic  = loadImage("./Pic/dart_monkey.png");
-  iceTowerPic    = loadImage("./Pic/ice_tower.png");
-  bombTowerPic   = loadImage("./Pic/bomb_tower.png");
-  superMonkeyPic = loadImage("./Pic/super_monkey.png");
-  
-  //weapons' images
-  dartPic  = loadImage("./Pic/dart.png");
-  bombPic  = loadImage("./Pic/note7.png");
-  laserPic = loadImage("./Pic/laser.png");
-  
-  //effects' images
-  explosionPic = loadImage("./Pic/explosion.png");
-  snowPic      = loadImage("./Pic/dart.png");
-  
-  //backgrounds' images
-  for (int i=0; i<3; i++)
-    map[i] = loadImage("./Pic/map" + str(i) + ".jpg");
-  
-  sellButtonPic = loadImage("./Pic/sell_button.png");
-  startArrowPic = loadImage("./Pic/start_arrow.png");
-  
-  
-  //-----------------------load fonts------------------------//
-  fontSmall  = loadFont("./Font/font_small.vlw");
-  fontMedium = loadFont("./Font/font_medium.vlw");
-  fontLarge  = loadFont("./Font/font_large.vlw");
-  
-  
-  //-----------------------load sounds-----------------------//
-  bgSound    = minim.loadFile("./Sound/bg.mp3"); 
-  dartSound  = minim.loadFile("./Sound/pop.mp3");
-  bombSound  = minim.loadFile("./Sound/bomb.mp3");
-  laserSound = minim.loadFile("./Sound/laser.mp3");
-  iceSound   = minim.loadFile("./Sound/ice.mp3");
-  
+  //--------------------load theme----------------------//
+  theme = new Theme(0);
   
   //----------------------create objects---------------------//
   PImage bg;
   Button buttonList [];
   
   //---------create menu screen-----------
-  bg = loadImage("./Pic/menu.jpg");
+  bg = loadImage("./Themes/Theme" + theme.themeNum + "/Pic/menu.jpg");
   buttonList = new Button[] {
     new NewGameButton(15, 440, 250, 480), 
     new QuitButton(730, 10, 790, 70),
@@ -206,7 +164,7 @@ void setup() {
   playScreen = new Screen(bg, buttonList);
    
   //--------create choosing track screen------------
-  bg = loadImage("./Pic/tracks.jpg");
+  bg = loadImage("./Themes/Theme" + theme.themeNum + "/Pic/tracks.jpg");
   buttonList = new Button[] {
     new ChooseTrackButton(85, 135, 285, 275, 0),
     new ChooseTrackButton(290, 125, 495, 285, 1),
@@ -216,28 +174,28 @@ void setup() {
   choosingTrackScreen = new Screen(bg, buttonList);
   
   //---------create win screen-------------
-  bg = loadImage("./Pic/win.jpg");
+  bg = loadImage("./Themes/Theme" + theme.themeNum + "/Pic/win.jpg");
   buttonList = new Button[] {
     new MenuButton(415, 310, 495, 370)
   };
   winScreen = new Screen(bg, buttonList);
   
   //-----------create lose screen-------------
-  bg = loadImage("./Pic/lose.jpg");
+  bg = loadImage("./Themes/Theme" + theme.themeNum + "/Pic/lose.jpg");
   buttonList = new Button[] {
     new MenuButton(580, 215, 655, 280),
   };
   loseScreen = new Screen(bg, buttonList);
   
   //-----------create high score screen-------------  
-  bg = loadImage("./Pic/highscore.jpg");
+  bg = loadImage("./Themes/Theme" + theme.themeNum + "/Pic/highscore.jpg");
   buttonList = new Button[] {
     new MenuButton(750, 475, 790, 512)
   };
   highScoreScreen = new Screen(bg, buttonList);
   
   //-----------create setting screen-------------
-  bg = loadImage("./Pic/setting.jpg");
+  bg = loadImage("./Themes/Theme" + theme.themeNum + "/Pic/setting.jpg");
   buttonList = new Button[] {
     new MenuButton(750, 475, 790, 512)
     // seting
