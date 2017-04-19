@@ -38,6 +38,7 @@ Screen winScreen;
 Screen loseScreen;
 Screen highScoreScreen;
 Screen choosingTrackScreen;
+Screen settingScreen;
 
 PImage sellButtonPic;
 PImage startArrowPic;
@@ -185,6 +186,7 @@ void setup() {
     new QuitButton(730, 10, 790, 70),
     new LoadGameButton(280, 440, 515, 480),
     new HighScoreButton(555, 440, 785, 480),
+    new SettingButton(12, 12, 33, 33),
   };
   menuScreen = new Screen(bg, buttonList);
 
@@ -234,6 +236,13 @@ void setup() {
   };
   highScoreScreen = new Screen(bg, buttonList);
   
+  //-----------create setting screen-------------
+  bg = loadImage("./Pic/setting.jpg");
+  buttonList = new Button[] {
+    new MenuButton(750, 475, 790, 512)
+    // seting
+  };
+  settingScreen = new Screen (bg, buttonList);
 
   //-----------------------------show menu----------------------------//
   screen = menuScreen;

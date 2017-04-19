@@ -181,6 +181,32 @@ class QuitButton extends Button {
 }
 
 
+class SettingButton extends Button {
+  SettingButton(float x1, float y1, float x2, float y2) {
+    super(x1, y1, x2, y2);
+  }
+  
+  void action() {
+    screen = settingScreen;
+  }
+}
+
+
+//---------------------------setting buttons--------------------------------------
+class ThemeButton extends Button {
+  int themeNum;
+  
+  ThemeButton(float x1, float y1, float x2, float y2, int themeNum) {
+    super(x1, y1, x2, y2);
+    this.themeNum = themeNum;
+  }
+  
+  void action() {
+    String data [] = loadStrings("./Theme/theme" + themeNum  + "/data.txt");
+  }
+}
+
+
 //---------------------------create & sell towers---------------------------------
 abstract class NewTowerButton extends Button {
   int price;
