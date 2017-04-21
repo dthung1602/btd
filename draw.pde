@@ -290,22 +290,21 @@ void drawMouse() {
 
 //--------------print health, money, messages on screen-------------//
 void showInfo() {
+  //-------print message-----------
+  textFont(fontSmall);
+  fill(255, 0, 0);
+  if (messageTime != 0) {
+    text(message,100, 480);
+    messageTime--;
+  }
+  
   //---- in play screen------------
   if (screen == playScreen) {
-    textFont(fontSmall);
-    fill(255, 0, 0);
-    
     //print basic info
     text(money, 725, 20);
     text(health, 725, 45);
     text("Round " + str(currentRound), 700, 70);
 
-    //print message
-    if (messageTime != 0) {
-      text(message,100, 480);
-      messageTime--;
-    }
-    
     // show where the balloons start
     if (!starting)
       image(startArrowPic, track.x[5], track.y[5], 50, 50);

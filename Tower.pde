@@ -46,7 +46,7 @@ abstract class Tower {
     }
     
     // rotate the tower
-    angle = -atan2(y-track.y[max],track.x[max]-x);
+    angle = atan2(track.y[max]-y,track.x[max]-x);
   }
   
   private Weapon newWeapon(float x, float y, float xSpeed, float ySpeed) {

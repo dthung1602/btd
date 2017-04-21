@@ -53,7 +53,7 @@ class SaveGameButton extends Button {
     }
     
     // save to file
-    saveStrings("./Data/savedgame.txt", data);
+    saveStrings("./Themes/Theme" + theme.themeNum + "/Data/savedgame.txt", data);
     
     // inform player
     message = "Game has been saved";
@@ -202,7 +202,12 @@ class ThemeButton extends Button {
   }
   
   void action() {
-    
+    if (theme.themeNum != themeNum)
+      theme = new Theme(themeNum);
+    message = "Changed to theme " + str(themeNum);
+    if (themeNum == 1) 
+      message += "\nRemember to wear sunglasses!";
+    messageTime = 75;
   }
 }
 
@@ -377,6 +382,7 @@ class MenuButton extends Button {
     buildingTower = null;
     pausing = true;
     screen = menuScreen;
+    messageTime = 0;
   }
 }
 
